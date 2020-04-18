@@ -1,3 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Condiment&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Courgette&display=swap");
+
 .full-height {
   min-height: 100vh !important;
 }
+
+.bg-pink {
+  background-color: #ea3546;
+}
+.bg-green {
+  background-color: #2fbf71;
+}
+.bg-dark {
+  background-color: #161718;
+}
+.bg-grey {
+  background-color: #93a8ac;
+}
+
+
+#menu-heading {
+  font-family: "Condiment", cursive;
+  font-size: 2rem;
+  text-shadow: 2px 2px #241f1f;
+  color: #93a8ac;
+}
+
+#menu {
+  height: 8vh;
+  max-height: 8vh;
+}
+
+.main-heading {
+  font-family: "Condiment", cursive;
+  font-size: 5rem;
+  text-shadow: 2px 2px #241f1f;
+  color: #93a8ac;
+}
+
+.login-heading {
+  font-family: "Comic Neue", cursive;
+  font-weight: bolder;
+}
+
+.typed-punch {
+  color: #f2f3f4;
+  font-family: "Courgette", cursive;
+  font-weight: bolder;
+  font-size: 3rem;
+}
+
+/* font-family: 'Comic Neue', cursive;
+font-family: 'Roboto', sans-serif;
+font-family: 'Condiment', cursive;
+*/

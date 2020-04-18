@@ -1,11 +1,6 @@
-import React from 'react'
-
+import React from "react";
 const SlamList = () => {
-    return (
-        <div>
-            slamList
-        </div>
-    )
-}
+  return <></>;
+};
 
-export default SlamList
+export default SlamList;
