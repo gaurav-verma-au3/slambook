@@ -6,40 +6,41 @@ import {
   FormControl,
   FormHelperText,
 } from "@material-ui/core";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import AlternateEmail from "@material-ui/icons/AlternateEmail";
 import LockOpen from "@material-ui/icons/LockOpen";
 import VpnKey from "@material-ui/icons/VpnKey";
 import { Link } from "react-router-dom";
 import Title from "./Title";
 import { withStyles } from "@material-ui/core/styles";
+import ReactTyped from "react-typed";
 
 const styles = {
   root: {
-    background: "#161718",
+    background: "transparent",
   },
   input: {
-    color: "white",
+    color: "#161718",
   },
   cssLabel: {
-    color: "white",
+    color: "#161718",
   },
   cssOutlinedInput: {
     "&$cssFocused $notchedOutline": {
-      borderColor: `white`,
+      borderColor: `#161718`,
     },
-    color: "white",
+    color: "#161718",
   },
 
   cssFocused: {
-    color: "white",
+    color: "#161718",
   },
 
   notchedOutline: {
     borderWidth: "2px",
-    borderColor: "white !important",
+    borderColor: "#161718 !important",
   },
 };
-
 const Signup = (props) => {
   const { classes } = props;
 
@@ -56,8 +57,8 @@ const Signup = (props) => {
               }}
             >
               <FormControl className="py-3">
-                <h2 className="text-center login-heading text-light">
-                  Sign Up
+                <h2 className="text-center text-black login-heading">
+                  <ReactTyped strings={["SignUp..."]} typeSpeed={80} />
                 </h2>
                 <TextField
                   variant="outlined"
@@ -78,7 +79,7 @@ const Signup = (props) => {
                     },
                     endAdornment: (
                       <InputAdornment position="end">
-                        <AlternateEmail className="text-light" />
+                        <PermIdentityIcon className="text-dark" />
                       </InputAdornment>
                     ),
                   }}
@@ -103,7 +104,7 @@ const Signup = (props) => {
                     },
                     endAdornment: (
                       <InputAdornment position="end">
-                        <AlternateEmail className="text-light" />
+                        <AlternateEmail className="text-dark" />
                       </InputAdornment>
                     ),
                   }}
@@ -130,7 +131,7 @@ const Signup = (props) => {
                     },
                     endAdornment: (
                       <InputAdornment position="end">
-                        <VpnKey className="text-light" />
+                        <VpnKey className="text-dark" />
                       </InputAdornment>
                     ),
                   }}
@@ -159,9 +160,14 @@ const Signup = (props) => {
                   }}
                 />
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   size="large"
                   color="secondary"
+                  style={{
+                    border: "2px solid #161718",
+                    color: "#f2f3f4",
+                    background: "rgba(0, 0, 0, 0.6)",
+                  }}
                   className="w-100 my-2"
                   endIcon={<LockOpen />}
                   type="submit"
@@ -169,13 +175,16 @@ const Signup = (props) => {
                   Signup
                 </Button>
                 <FormHelperText
-                  className="text-center text-light"
+                  className="text-center  text-dark"
                   id="my-helper-text"
                 >
                   We'll never share your email.
                 </FormHelperText>
-                <h6 className="text-center my-1 text-light">
-                  Already Registered go to <Link to="/login">Login</Link>
+                <h6 className="text-center my-1 text-black">
+                  Already Registered go to{" "}
+                  <Link className="text-dark text-underline" to="/login">
+                    Login
+                  </Link>
                 </h6>
               </FormControl>
             </form>

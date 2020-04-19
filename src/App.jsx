@@ -15,10 +15,11 @@ import FillSlam from "./components/FillSlam";
 import Landing from "./components/Landing";
 import "./components/styles/landingPage.css";
 import Menu from "./components/Menu";
+import AddQuestions from "./components/AddQuestions";
 // import FourZeroFour from "./components/FourZeroFour";
 
 function App() {
-  const [bg, setBg] = useState("background-0");
+  const [bg, setBg] = useState("background-9");
   const [showPallete, setShowPallete] = useState(false);
   return (
     <div className="App container-fluid full-height" id={bg}>
@@ -37,7 +38,16 @@ function App() {
           )}
         />
         <Route exact path="/app/home" component={SlamList} />
-        <Route exact path="/app/add" component={AddEntry} />
+        <Route
+          exact
+          path="/app/add/user"
+          component={() => <AddEntry bg={bg} />}
+        />
+        <Route
+          exact
+          path="/app/add/questions"
+          component={() => <AddQuestions />}
+        />
         <Route path="/app/slam/:id" component={SlamPage} />
         <Route path="/app/fill/:id" component={FillSlam} />
       </Router>

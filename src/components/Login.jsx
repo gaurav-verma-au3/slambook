@@ -12,30 +12,31 @@ import LockOpen from "@material-ui/icons/LockOpen";
 import VpnKey from "@material-ui/icons/VpnKey";
 import { Link } from "react-router-dom";
 import Title from "./Title";
+import ReactTyped from "react-typed";
 const styles = {
   root: {
-    background: "#161718",
+    background: "transparent",
   },
   input: {
-    color: "white",
+    color: "#161718",
   },
   cssLabel: {
-    color: "white",
+    color: "#161718",
   },
   cssOutlinedInput: {
     "&$cssFocused $notchedOutline": {
-      borderColor: `white`,
+      borderColor: `#161718`,
     },
-    color: "white",
+    color: "#161718",
   },
 
   cssFocused: {
-    color: "white",
+    color: "#161718",
   },
 
   notchedOutline: {
     borderWidth: "2px",
-    borderColor: "white !important",
+    borderColor: "#161718 !important",
   },
 };
 const Login = (props) => {
@@ -52,7 +53,9 @@ const Login = (props) => {
             }}
           >
             <FormControl className="py-3">
-              <h2 className="text-center text-light login-heading">Login</h2>
+              <h2 className="text-center text-black login-heading">
+                <ReactTyped strings={["Login..."]} typeSpeed={80} />
+              </h2>
               <TextField
                 variant="outlined"
                 required
@@ -106,10 +109,15 @@ const Login = (props) => {
                 autoComplete="current-password"
               />
               <Button
-                variant="contained"
+                variant="outlined"
                 size="large"
                 color="secondary"
-                className="w-100 my-2 bg-pink"
+                style={{
+                  border: "2px solid #161718",
+                  color: "#f2f3f4",
+                  background: "rgba(0, 0, 0, 0.6)",
+                }}
+                className="w-100 my-2"
                 endIcon={<LockOpen />}
                 type="submit"
               >
@@ -118,8 +126,11 @@ const Login = (props) => {
               {/* <FormHelperText className="text-center" id="my-helper-text">
                 We'll never share your email.
               </FormHelperText> */}
-              <h6 className="text-center my-1 text-light">
-                Not Registered go to <Link to="/signup">SignUp</Link>
+              <h6 className="text-center my-1 text-dark">
+                Not Registered go to{" "}
+                <Link className="text-dark text-underline" to="/signup">
+                  SignUp
+                </Link>
               </h6>
             </FormControl>
           </form>
