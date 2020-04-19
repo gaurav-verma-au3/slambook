@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <div className="container-fluid full-height d-flex justify-content-center align-items-center">
-      <div className="container h-100">
+      <div className="container">
         <Title />
         <div style={{ height: "40vh" }}>
           <p className="text-center typed-punch">

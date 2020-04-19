@@ -3,6 +3,7 @@
 
 .full-height {
   min-height: 100vh !important;
+ 
 }
 
 .bg-pink {
@@ -17,7 +18,6 @@
 .bg-grey {
   background-color: #93a8ac;
 }
-
 
 #menu-heading {
   font-family: "Condiment", cursive;
