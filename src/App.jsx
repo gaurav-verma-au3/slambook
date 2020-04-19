@@ -21,24 +21,23 @@ function App() {
   return (
     <div className="App container-fluid full-height" id="page-background">
       <Router>
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <div className="container-fluid">
-            <div className="row d-flex justify-content-center ">
-              <div className="col-12 my-3">
-                <Route path="/app" component={Menu} />
-              </div>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <div className="container-fluid">
+          <div className="row d-flex justify-content-center ">
+            <div className="col-12 my-3">
+              <Route path="/app" component={Menu} />
             </div>
           </div>
-          <Route exact path="/app/home" component={SlamList} />
-          <Route exact path="/app/add" component={AddEntry} />
-          <Route path="/app/slam/:id" component={SlamPage} />
-          <Route path="/app/fill/:id" component={FillSlam} />
-          <Route path="/404" component={FourZeroFour} />
+        </div>
+        <Route exact path="/app/home" component={SlamList} />
+        <Route exact path="/app/add" component={AddEntry} />
+        <Route path="/app/slam/:id" component={SlamPage} />
+        <Route path="/app/fill/:id" component={FillSlam} />
+        {/* <Route path="/404" component={FourZeroFour} />
           <Route path="*" component={() => <Redirect to="/404" />} />
-        </Switch>
+        </Switch> */}
       </Router>
     </div>
   );
