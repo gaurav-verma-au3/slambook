@@ -25,6 +25,10 @@
   color: #161718;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 #menu {
   height: 8vh;
   max-height: 8vh;

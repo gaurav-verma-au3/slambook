@@ -16,7 +16,10 @@ const AddQuestions = () => {
       <div className="row">
         {userQuestions.map((q, i) => {
           return (
-            <div className="col-12 d-flex justify-content-center  align-items-center">
+            <div
+              className="col-12 d-flex justify-content-center  align-items-center"
+              key={q + i}
+            >
               <div className="row w-100">
                 <div className="col-1 d-flex font-weight-bolder justify-content-center">
                   <p className="m-0 my-2 question-list">{i + 1}.</p>

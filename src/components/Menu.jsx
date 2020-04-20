@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import LockIcon from "@material-ui/icons/Lock";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import ReactTyped from "react-typed";
 import BgPallete from "./BgPallete";
+import { logout } from "../store/isLoggedIn/actions/isLoggedIn.actions";
+import { handleNotification } from "../utils";
 
 const Menu = ({ setShowPallete, showPallete, setBg }) => {
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const handleLogout = () => {
+    dispatch(logout());
+    handleNotification(enqueueSnackbar, "Logged Out Successfully", "success");
+  };
+
   return (
     <div className="container-fluid py-3">
+      {!isLoggedIn.success && <Redirect to="/" />}
       <div className="row d-flex justify-content-center rounded align-items-center rounded">
         <div className="col-12 rounded" style={{ border: "5px solid #161718" }}>
           <div className="row">
@@ -50,9 +63,10 @@ const Menu = ({ setShowPallete, showPallete, setBg }) => {
                 <Link to="/app/add/Questions">
                   <PostAddIcon className="mx-2 text-dark" />
                 </Link>
-                <Link to="/app/logout">
-                  <LockIcon className="mx-2 text-dark" />
-                </Link>
+                <LockIcon
+                  className="mx-2 text-dark cursor-pointer"
+                  onClick={(e) => handleLogout()}
+                />
               </div>
             </div>
           </div>

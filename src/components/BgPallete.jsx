@@ -1,5 +1,5 @@
 import React from "react";
-import { isBrowser, isMobile } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 const style = {

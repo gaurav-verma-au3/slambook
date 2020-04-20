@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BgPallete from "./BgPallete";
 import { isMobile } from "react-device-detect";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import {
   FormControl,
   TextField,
@@ -66,7 +67,7 @@ const AddEntry = ({ bg, classes }) => {
                   },
                   endAdornment: (
                     <InputAdornment position="end">
-                      {/* <AlternateEmail /> */}
+                      <AssignmentIndIcon />
                     </InputAdornment>
                   ),
                 }}
@@ -80,7 +81,6 @@ const AddEntry = ({ bg, classes }) => {
                 }}
                 size="large"
                 className="w-100 my-2 "
-                // endIcon={<LockOpen />}
                 type="submit"
               >
                 Add Request

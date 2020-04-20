@@ -1,18 +1,21 @@
 import React from "react";
+import { useSnackbar } from "notistack";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   TextField,
   InputAdornment,
   Button,
   FormControl,
-  FormHelperText,
   withStyles,
 } from "@material-ui/core";
 import AlternateEmail from "@material-ui/icons/AlternateEmail";
 import LockOpen from "@material-ui/icons/LockOpen";
 import VpnKey from "@material-ui/icons/VpnKey";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Title from "./Title";
 import ReactTyped from "react-typed";
+import { login } from "../store/api/auth";
 const styles = {
   root: {
     background: "transparent",
@@ -39,17 +42,31 @@ const styles = {
     borderColor: "#161718 !important",
   },
 };
-const Login = (props) => {
-  const { classes } = props;
+
+const Login = ({ classes }) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    login(
+      e.target.email.value,
+      e.target.password.value,
+      dispatch,
+      enqueueSnackbar
+    );
+  };
+
   return (
     <div className="container-fluid">
+      {isLoggedIn.success && <Redirect to="/app/home" />}
       <div className="row full-height d-flex justify-content-center align-items-center ">
         <div className="col-lg-3 col-md-6 col-sm-12  p-3 m-2">
           <Title />
           <form
             className="d-flex justify-content-center rounded py-3 "
             onSubmit={(e) => {
-              console.log("error");
+              handleLogin(e);
             }}
           >
             <FormControl className="py-3">
@@ -61,6 +78,7 @@ const Login = (props) => {
                 required
                 className={`w-100 my-2 ${classes.root}`}
                 label="Email"
+                name="email"
                 InputLabelProps={{
                   classes: {
                     root: classes.cssLabel,
@@ -85,6 +103,7 @@ const Login = (props) => {
                 // helperText={?"Required Field":''}
                 type="password"
                 required
+                name="password"
                 variant="outlined"
                 className={`w-100 my-2 ${classes.root}`}
                 label="Password"
@@ -123,9 +142,6 @@ const Login = (props) => {
               >
                 Login
               </Button>
-              {/* <FormHelperText className="text-center" id="my-helper-text">
-                We'll never share your email.
-              </FormHelperText> */}
               <h6 className="text-center my-1 text-dark">
                 Not Registered go to{" "}
                 <Link className="text-dark text-underline" to="/signup">
