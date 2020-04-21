@@ -22,7 +22,7 @@ const Menu = ({ setShowPallete, showPallete, setBg }) => {
 
   return (
     <div className="container-fluid py-3">
-      {!isLoggedIn.success && <Redirect to="/" />}
+      {!isLoggedIn.success && <Redirect to="/login" />}
       <div className="row d-flex justify-content-center rounded align-items-center rounded">
         <div className="col-12 rounded" style={{ border: "5px solid #161718" }}>
           <div className="row">

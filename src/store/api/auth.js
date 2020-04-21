@@ -17,7 +17,6 @@ export const login = (email, password, dispatch, enqueueSnackbar) => {
   })
     .then((data) => data.json())
     .then((data) => {
-      console.log(data, "from success");
       const variant = data.error ? "error" : "success";
       const message = data.message;
       localStorage.setItem("auth_user_token", JSON.stringify(data));

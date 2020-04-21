@@ -1,10 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Typed from "react-typed";
 import Title from "./Title";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+
 const Landing = () => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <div className="container-fluid full-height d-flex justify-content-center align-items-center">
+      {isLoggedIn.success && <Redirect to="/app/home" />}
       <div className="container">
         <Title />
         <div style={{ height: "40vh" }}>
