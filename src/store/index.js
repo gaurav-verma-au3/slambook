@@ -29,11 +29,10 @@ class StateLoader {
   }
 }
 
-let composeEnhancer = '';
-if(process.env.NODE_ENV === 'development')
-    composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-else
-    composeEnhancer = compose;
+let composeEnhancer = "";
+if (process.env.NODE_ENV === "development")
+  composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+else composeEnhancer = compose;
 
 const stateLoader = new StateLoader();
 
@@ -47,7 +46,7 @@ store.subscribe(() => {
   stateLoader.saveState(store.getState());
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return state;
 };
 export { store, mapStateToProps };

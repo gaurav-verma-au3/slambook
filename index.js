@@ -49,12 +49,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //middleware
-const tokenverify = require("./server/middleware/tokensign.middleware");
+const tokenverify = require("./server/middleware/tokensign.middleware")
+  .verifyToken;
 
 //routes
 const auth = require("./server/routes/auth");
-
-app.use("/api/auth", auth);
-
+const slam = require("./server/routes/slam");
+app.use("/api", auth);
+app.use("/api", tokenverify, slam);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log("Server listening on : ", PORT));

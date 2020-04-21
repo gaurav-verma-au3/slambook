@@ -7,20 +7,34 @@ import {
 
 const slamEntriesReducer = (slamEntries = [], action) => {
   if (action.type === "FETCH_ENTRIES") {
-    const { payload } = action.payload;
-    fetchAllEntries(payload);
+    const { payload, enqueueSnackbar } = action.payload;
+    fetchAllEntries(payload, enqueueSnackbar);
   }
   if (action.type === "ADD_ENTRY") {
-    const { name, custom_bg, message } = action.payload;
-    addEntryAPI(name, custom_bg, message);
+    console.log("in reducer");
+    const {
+      name,
+      custom_bg,
+      message,
+      isLoggedIn,
+      enqueueSnackbar,
+    } = action.payload;
+    addEntryAPI(name, custom_bg, message, isLoggedIn, enqueueSnackbar);
   }
   if (action.type === "DELETE_ENTRY") {
-    const { _id, isLoggedIn } = action.payload;
-    deleteEntryAPI(_id, isLoggedIn);
+    const { _id, isLoggedIn, enqueueSnackbar } = action.payload;
+    deleteEntryAPI(_id, isLoggedIn, enqueueSnackbar);
   }
   if (action.type === "UPDATE_ENTRY") {
-    const { _id, isLoggedIn } = action.payload;
-    updateEntryAPI(_id, isLoggedIn);
+    const {
+      _id,
+      name,
+      custom_bg,
+      message,
+      isLoggedIn,
+      enqueueSnackbar,
+    } = action.payload;
+    updateEntryAPI(_id, message, custom_bg, name, isLoggedIn, enqueueSnackbar);
   }
   if (action.type === "UPDATE_ENTRIES_IN_STORE") {
     slamEntries = action.payload;

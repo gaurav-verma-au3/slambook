@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
 import { isMobile } from "react-device-detect";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import MessageIcon from "@material-ui/icons/Message";
@@ -10,6 +12,7 @@ import {
   withStyles,
   Button,
 } from "@material-ui/core";
+import { addEntry } from "../store/slamEntries/actions/slamEntries.actions";
 const styles = {
   root: {
     background: "transparent",
@@ -37,11 +40,30 @@ const styles = {
   },
 };
 const AddEntryForm = ({ bg, classes }) => {
-  const [customBg, setCustomBg] = useState(bg);
+  const [custom_bg, setCustomBg] = useState(bg);
+  const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    const payload = {
+      custom_bg,
+      ...formData,
+      isLoggedIn,
+      enqueueSnackbar,
+    };
+
+    dispatch(addEntry(payload));
+  };
+
   return (
     <form
       className={` rounded border border-dark ${isMobile ? "p-2" : "p-4"}`}
-      id={customBg}
+      id={custom_bg}
     >
       <BgPallete setBg={setCustomBg} />
 
@@ -51,6 +73,7 @@ const AddEntryForm = ({ bg, classes }) => {
           required
           className={`w-100 my-2 ${classes.root}`}
           label="Name"
+          onChange={(e) => handleChange(e)}
           InputLabelProps={{
             classes: {
               root: classes.cssLabel,
@@ -105,7 +128,7 @@ const AddEntryForm = ({ bg, classes }) => {
           }}
           size="large"
           className="w-100 my-2 "
-          type="submit"
+          onClick={handleSubmit}
         >
           Add Request
         </Button>
