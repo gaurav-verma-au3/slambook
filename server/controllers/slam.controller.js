@@ -5,7 +5,7 @@ module.exports = {
     const { _id } = req.payload;
     db.collection("slams")
       .find({ owner_id: _id })
-      .project({ message: 0 })
+      .project({ questions: 0 })
       .toArray((err, slams) => {
         if (err) {
           res.send({

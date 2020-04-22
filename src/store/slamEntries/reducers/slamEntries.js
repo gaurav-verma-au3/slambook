@@ -11,7 +11,6 @@ const slamEntriesReducer = (slamEntries = [], action) => {
     fetchAllEntries(payload, enqueueSnackbar);
   }
   if (action.type === "ADD_ENTRY") {
-    console.log("in reducer");
     const {
       name,
       custom_bg,

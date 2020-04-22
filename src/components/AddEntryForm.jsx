@@ -50,6 +50,7 @@ const AddEntryForm = ({ bg, classes }) => {
   };
 
   const handleSubmit = (e) => {
+    console.log(formData);
     const payload = {
       custom_bg,
       ...formData,
@@ -73,6 +74,7 @@ const AddEntryForm = ({ bg, classes }) => {
           required
           className={`w-100 my-2 ${classes.root}`}
           label="Name"
+          name="name"
           onChange={(e) => handleChange(e)}
           InputLabelProps={{
             classes: {
@@ -99,7 +101,9 @@ const AddEntryForm = ({ bg, classes }) => {
           className={`w-100 my-2 ${classes.root}`}
           label="Message"
           multiline
+          name="message"
           rows={4}
+          onChange={(e) => handleChange(e)}
           InputLabelProps={{
             classes: {
               root: classes.cssLabel,
