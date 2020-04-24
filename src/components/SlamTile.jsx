@@ -40,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SlamTile = ({ slam: { name, custom_bg, message, is_answered, _id } }) => {
-  console.log(name, custom_bg, message, is_answered);
-
   const classes = useStyles();
   // const [expanded, setExpanded] = React.useState(false);
 
@@ -67,7 +65,7 @@ const SlamTile = ({ slam: { name, custom_bg, message, is_answered, _id } }) => {
       />
       <CardContent>
         {/* <Typography variant="body2" color="textSecondary" component="p"> */}
-          {message}
+        {message}
         {/* </Typography> */}
       </CardContent>
       <CardActions disableSpacing>

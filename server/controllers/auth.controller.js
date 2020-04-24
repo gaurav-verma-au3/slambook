@@ -26,6 +26,7 @@ module.exports = {
       }
     });
   },
+  
   login: (req, res) => {
     const { password, email } = req.body;
     db.collection("users").findOne({ email }, (err, user) => {

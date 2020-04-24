@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import SlamTile from "./SlamTile";
 const SlamList = () => {
   const slamEntries = useSelector((state) => state.slamEntries);
-  console.log(slamEntries);
+
   return (
     <div className="container">
       <div className="row ">

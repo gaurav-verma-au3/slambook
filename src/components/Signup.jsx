@@ -72,7 +72,6 @@ const Signup = (props) => {
         setResponse(data);
         const { message, error } = data;
         const variant = error ? "error" : "success";
-        console.log(message, variant);
         handleNotification(enqueueSnackbar, message, variant);
       });
   };

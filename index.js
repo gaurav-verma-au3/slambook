@@ -55,7 +55,9 @@ const tokenverify = require("./server/middleware/tokensign.middleware")
 //routes
 const auth = require("./server/routes/auth");
 const slam = require("./server/routes/slam");
+const fill = require("./server/routes/fill");
 app.use("/api", auth);
-app.use("/api", tokenverify, slam);
+app.use("/api/slam", tokenverify, slam);
+app.use("/api/fill", fill);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log("Server listening on : ", PORT));

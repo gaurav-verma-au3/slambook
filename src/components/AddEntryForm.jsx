@@ -13,6 +13,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { addEntry } from "../store/slamEntries/actions/slamEntries.actions";
+
 const styles = {
   root: {
     background: "transparent",
@@ -39,6 +40,7 @@ const styles = {
     borderColor: "#161718 !important",
   },
 };
+
 const AddEntryForm = ({ bg, classes }) => {
   const [custom_bg, setCustomBg] = useState(bg);
   const [formData, setFormData] = useState({});
@@ -50,7 +52,6 @@ const AddEntryForm = ({ bg, classes }) => {
   };
 
   const handleSubmit = (e) => {
-    console.log(formData);
     const payload = {
       custom_bg,
       ...formData,

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -8,10 +7,13 @@ import AddEntry from "./components/AddEntry";
 import SlamPage from "./components/SlamPage";
 import FillSlam from "./components/FillSlam";
 import Landing from "./components/Landing";
-import "./components/styles/landingPage.css";
-import Menu from "./components/Menu";
+import PostResponse from "./components/PostResponse";
 import AddQuestions from "./components/AddQuestions";
+import Menu from "./components/Menu";
 import { SnackbarProvider } from "notistack";
+import "./components/styles/landingPage.css";
+import "./App.css";
+
 function App() {
   const [bg, setBg] = useState("background-9");
   const [showPallete, setShowPallete] = useState(false);
@@ -45,6 +47,7 @@ function App() {
           />
           <Route path="/app/slam/:id" component={SlamPage} />
           <Route path="/app/fill/:id" component={FillSlam} />
+          <Route path="/fill/slam/:slam_id" component={PostResponse} />
         </Router>
       </div>
     </SnackbarProvider>
