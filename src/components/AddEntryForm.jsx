@@ -13,6 +13,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { addEntry } from "../store/slamEntries/actions/slamEntries.actions";
+import AuthRedirect from "./AuthRedirect";
 
 const styles = {
   root: {
@@ -67,6 +68,7 @@ const AddEntryForm = ({ bg, classes }) => {
       className={` rounded border border-dark ${isMobile ? "p-2" : "p-4"}`}
       id={custom_bg}
     >
+      <AuthRedirect />
       <BgPallete setBg={setCustomBg} />
 
       <FormControl className=" w-100 py-3">

@@ -3,6 +3,7 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 import { isMobile } from "react-device-detect";
 import { useSelector } from "react-redux";
+import AuthRedirect from "./AuthRedirect";
 const AddQuestions = () => {
   const questions = useSelector((state) => state.isLoggedIn.questions);
 
@@ -14,6 +15,7 @@ const AddQuestions = () => {
 
   return (
     <div className={`container-fluid ${isMobile ? "py-2" : "py-5"}`}>
+      <AuthRedirect />
       <div className="row">
         {questions.map((q, i) => {
           return (

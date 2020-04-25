@@ -1,6 +1,7 @@
 import React from "react";
 import { isMobile } from "react-device-detect";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import AuthRedirect from "./AuthRedirect";
 
 const style = {
   cursor: "pointer",
@@ -15,6 +16,7 @@ const BgPallete = ({ setBg, setShowPallete }) => {
   };
   return (
     <div className="row  justify-content-center align-items-center  px-3">
+      <AuthRedirect />
       {bgs.map((v) => {
         return (
           <div

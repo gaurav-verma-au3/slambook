@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { API_ORIGIN_URL } from "../config";
 import ResponseForm from "./ResponseForm";
 import { useParams } from "react-router-dom";
+import HelmetShare from "./HelmetShare";
 
 const PostResponse = (props) => {
   const { setBg, setUserName } = props;
@@ -29,6 +30,7 @@ const PostResponse = (props) => {
       className="container-fluid m-0 p-0"
       id={`${slam && slam.custom_bg ? slam.custom_bg : "background-9"}`}
     >
+      <HelmetShare message={slam.message} />
       <div className="row d-flex justify-content-center">
         {slam ? <ResponseForm questions={slam.questions} /> : null}
       </div>

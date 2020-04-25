@@ -17,9 +17,11 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import AuthRedirect from "./AuthRedirect";
 const Share = ({ url, media }) => {
   return (
     <>
+    <AuthRedirect />
       <div className="container-fluid">
         <div className="row my-1">
           <div className="col-12 d-flex justify-content-around align-items-center">

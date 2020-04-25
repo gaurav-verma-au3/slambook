@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import SlamTile from "./SlamTile";
+import AuthRedirect from "./AuthRedirect";
 const SlamList = () => {
   const slamEntries = useSelector((state) => state.slamEntries);
 
   return (
     <div className="container">
+      <AuthRedirect />
       <div className="row ">
         {slamEntries &&
           slamEntries.map((slam, idx) => (
