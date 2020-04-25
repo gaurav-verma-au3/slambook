@@ -19,7 +19,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useDispatch, useSelector } from "react-redux";
 import { markFavourite } from "../store/slamEntries/actions/slamEntries.actions";
 import Share from "./Share";
-import { API_ORIGIN_URL } from "../config";
+import { API_ORIGIN_URL, appRoot } from "../config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,7 +119,7 @@ const SlamTile = ({
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Share
-                url={`${API_ORIGIN_URL}/fill/slam/${_id}`}
+                url={`${appRoot}/fill/slam/${_id}`}
                 media={`https://i.ibb.co/Yd4pGm1/logo512.png`}
               />
             </CardContent>
