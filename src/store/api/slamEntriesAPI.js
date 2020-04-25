@@ -14,6 +14,7 @@ export const addEntryAPI = (
   const body = {
     name,
     message,
+    questions: isLoggedIn.questions,
     custom_bg,
   };
   fetch(url, {
@@ -50,8 +51,6 @@ export const deleteEntryAPI = (_id, isLoggedIn, enqueueSnackbar) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      //notistack
-      console.log(data);
       fetchAllEntries(isLoggedIn, enqueueSnackbar);
     });
 };
@@ -82,8 +81,6 @@ export const updateEntryAPI = (
   })
     .then((res) => res.json())
     .then((data) => {
-      //notistack
-      console.log(data);
       fetchAllEntries(isLoggedIn, enqueueSnackbar);
     });
 };
@@ -104,5 +101,33 @@ export const fetchAllEntries = (isLoggedIn, enqueueSnackbar) => {
       handleNotification(enqueueSnackbar, data.message, variant);
       //notistack
       store.dispatch(updateEntriesInStore(data.slams));
+    });
+};
+
+export const markFavouriteAPI = ({
+  _id,
+  isFavourite,
+  isLoggedIn,
+  enqueueSnackbar,
+}) => {
+  const { token } = isLoggedIn;
+  const url = `${API_ORIGIN_URL}/slam/markfavourite`;
+  const body = {
+    _id,
+    isFavourite,
+  };
+  fetch(url, {
+    method: "PUT",
+    body: JSON.stringify(body),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      //notistack
+      console.log(data);
+      fetchAllEntries(isLoggedIn, enqueueSnackbar);
     });
 };

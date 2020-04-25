@@ -1,6 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Condiment&family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Courgette&display=swap");
 
+* ::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+* {
+  -ms-overflow-style: none;
+}
+
+.border-thick-mute {
+  border: 3px solid #939494;
+}
+
+.border-thick-active {
+  border: 3px solid #2e7e23;
+}
+
 .full-height {
   min-height: 100vh !important;
 }
@@ -61,14 +78,6 @@
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-* ::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE and Edge */
-* {
-  -ms-overflow-style: none;
-}
 
 /* font-family: 'Comic Neue', cursive;
 font-family: 'Roboto', sans-serif;

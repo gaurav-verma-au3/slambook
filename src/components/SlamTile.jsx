@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSnackbar } from "notistack";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -15,6 +16,10 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { useDispatch, useSelector } from "react-redux";
+import { markFavourite } from "../store/slamEntries/actions/slamEntries.actions";
+import Share from "./Share";
+import { API_ORIGIN_URL } from "../config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,57 +44,89 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SlamTile = ({ slam: { name, custom_bg, message, is_answered, _id } }) => {
+const SlamTile = ({
+  slam: { name, custom_bg, message, is_answered, _id, isFavourite },
+}) => {
   const classes = useStyles();
-  // const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-  //   const handleExpandClick = () => {
-  //     setExpanded(!expanded);
-  //   };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
+  const handleMarkFavourite = (_id, isFavourite) => {
+    dispatch(
+      markFavourite({
+        _id,
+        isFavourite,
+        isLoggedIn,
+        is_answered,
+        enqueueSnackbar,
+      })
+    );
+  };
   return (
-    <Card className={classes.root} id={custom_bg}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {name[0].toUpperCase()}
-          </Avatar>
-        }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
-        title={name}
-        // subheader="September 14, 2016"
-      />
-      <CardContent>
-        {/* <Typography variant="body2" color="textSecondary" component="p"> */}
-        {message}
-        {/* </Typography> */}
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        {/* <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton> */}
-      </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>Expanded</CardContent>
-      </Collapse> */}
-    </Card>
+    <>
+      <Card
+        className={`${
+          is_answered ? "border-thick-active" : "border-thick-mute"
+        } ${classes.root} p-2`}
+        style={{ background: "transparent" }}
+      >
+        <div id={custom_bg}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {name[0].toUpperCase()}
+              </Avatar>
+            }
+            // action={
+            //   <IconButton aria-label="Share">
+            //     <ShareIcon />
+            //   </IconButton>
+            // }
+            title={name}
+            // subheader="September 14, 2016"
+          />
+          <CardContent>
+            <Typography variant="body2" color="textPrimary" component="p">
+              {message}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon
+                className={`${isFavourite ? "text-danger" : ""}`}
+                onClick={(e) => handleMarkFavourite(_id, !isFavourite)}
+              />
+            </IconButton>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={(e) => setExpanded(!expanded)}
+              aria-expanded={expanded}
+              aria-label="share"
+            >
+              <ShareIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Share
+                url={`${API_ORIGIN_URL}/fill/slam/${_id}`}
+                media={`https://i.ibb.co/Yd4pGm1/logo512.png`}
+              />
+            </CardContent>
+          </Collapse>
+        </div>
+      </Card>
+    </>
   );
 };
 

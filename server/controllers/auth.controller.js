@@ -26,7 +26,7 @@ module.exports = {
       }
     });
   },
-  
+
   login: (req, res) => {
     const { password, email } = req.body;
     db.collection("users").findOne({ email }, (err, user) => {
@@ -37,7 +37,7 @@ module.exports = {
           message: "Email not Registered !",
         });
       else if (user && user.password === password) {
-        const { name, email, image, _id } = user;
+        const { name, email, image, _id, questions } = user;
         const jwt = require("jsonwebtoken");
         const token = jwt.sign({ _id, name, email }, process.env.TOKEN_SECRET);
         let data = {
@@ -49,6 +49,7 @@ module.exports = {
           name,
           email,
           image,
+          questions,
         };
         res.json(data);
       } else {

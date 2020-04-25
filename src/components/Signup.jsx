@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   InputAdornment,
@@ -17,6 +17,7 @@ import ReactTyped from "react-typed";
 import { API_ORIGIN_URL } from "../config";
 import { useSnackbar } from "notistack";
 import { handleNotification } from "../utils";
+import { questions } from "../questions";
 const styles = {
   root: {
     background: "transparent",
@@ -75,6 +76,13 @@ const Signup = (props) => {
         handleNotification(enqueueSnackbar, message, variant);
       });
   };
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      questions: [...questions.map((q, i) => ({ index: i, question: q }))],
+    });
+  }, []);
 
   return (
     <div>

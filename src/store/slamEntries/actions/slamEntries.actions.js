@@ -23,6 +23,13 @@ export const updateEntry = (payload) => {
   };
 };
 
+export const markFavourite = (payload) => {
+  return {
+    type: "MARK_FAVOURITE",
+    payload,
+  };
+};
+
 export const updateEntriesInStore = (payload) => {
   return {
     type: "UPDATE_ENTRIES_IN_STORE",

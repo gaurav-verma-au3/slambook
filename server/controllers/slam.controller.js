@@ -23,10 +23,10 @@ module.exports = {
   },
   addSlamEntry: (req, res) => {
     const { _id: owner_id } = req.payload;
-    const { name, custom_bg, message } = req.body;
+    const { name, custom_bg, message, questions } = req.body;
     const is_answered = false;
     db.collection("slams").insertOne(
-      { name, is_answered, owner_id, custom_bg, message },
+      { name, is_answered, owner_id, custom_bg, questions, message },
       (err, data) => {
         if (err) {
           res.send({
@@ -59,6 +59,29 @@ module.exports = {
           res.send({
             error: false,
             message: "Slam edited Successfully !",
+            data,
+          });
+        }
+      }
+    );
+  },
+  markfavourite: (req, res) => {
+    const { _id, isFavourite } = req.body;
+    const { _id: owner_id } = req.payload;
+    db.collection("slams").updateOne(
+      { _id: ObjectID(_id), owner_id },
+      { $set: { isFavourite } },
+      { upsert: true },
+      (err, data) => {
+        if (err) {
+          res.send({
+            error: true,
+            message: "Unable to mark favourite !",
+          });
+        } else {
+          res.send({
+            error: false,
+            message: "Added to Favourites !",
             data,
           });
         }

@@ -11,7 +11,7 @@ import BgPallete from "./BgPallete";
 import { logout } from "../store/isLoggedIn/actions/isLoggedIn.actions";
 import { handleNotification } from "../utils";
 
-const Menu = ({ setShowPallete, showPallete, setBg }) => {
+const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -22,9 +22,6 @@ const Menu = ({ setShowPallete, showPallete, setBg }) => {
 
   return (
     <div className="container-fluid py-3">
-      {!isLoggedIn.success && !window.location.pathname.startsWith("/app") && (
-        <Redirect to="/login" />
-      )}
       <div className="row d-flex justify-content-center rounded align-items-center rounded">
         <div className="col-12 rounded" style={{ border: "5px solid #161718" }}>
           <div className="row">
@@ -50,6 +47,7 @@ const Menu = ({ setShowPallete, showPallete, setBg }) => {
                 </>
               ) : null}
             </div>
+            {isLoggedIn.success ? (
             <div className="col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center">
               <div className="d-flex justify-content-center align-items-center">
                 <ColorLensIcon
@@ -71,6 +69,12 @@ const Menu = ({ setShowPallete, showPallete, setBg }) => {
                 />
               </div>
             </div>
+            ) : null}
+          </div>
+          <div className="col-12">
+            <p className="font-weight-bold text-center">
+              Welcome, {userName}
+            </p>
           </div>
         </div>
 

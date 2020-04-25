@@ -21,8 +21,7 @@ module.exports = {
     );
   },
   getSlam: (req, res) => {
-    const { slam_id } = req.params;
-    console.log(slam_id);
+    const slam_id = req.params.slam_id;
     db.collection("slams").findOne({ _id: ObjectId(slam_id) }, (err, slam) => {
       if (err) {
         res.send({

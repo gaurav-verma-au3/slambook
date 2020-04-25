@@ -3,6 +3,7 @@ import {
   fetchAllEntries,
   deleteEntryAPI,
   updateEntryAPI,
+  markFavouriteAPI,
 } from "../../api/slamEntriesAPI";
 
 const slamEntriesReducer = (slamEntries = [], action) => {
@@ -35,6 +36,12 @@ const slamEntriesReducer = (slamEntries = [], action) => {
     } = action.payload;
     updateEntryAPI(_id, message, custom_bg, name, isLoggedIn, enqueueSnackbar);
   }
+  if (action.type === "MARK_FAVOURITE") {
+    const { _id, isFavourite, isLoggedIn, enqueueSnackbar } = action.payload;
+
+    markFavouriteAPI({ _id, isFavourite, isLoggedIn, enqueueSnackbar });
+  }
+
   if (action.type === "UPDATE_ENTRIES_IN_STORE") {
     slamEntries = action.payload;
   }
