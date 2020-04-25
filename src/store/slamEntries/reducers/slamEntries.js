@@ -45,6 +45,9 @@ const slamEntriesReducer = (slamEntries = [], action) => {
   if (action.type === "UPDATE_ENTRIES_IN_STORE") {
     slamEntries = action.payload;
   }
+  if (action.type === "CLEAR_ENTRIES") {
+    slamEntries = [];
+  }
 
   return slamEntries;
 };

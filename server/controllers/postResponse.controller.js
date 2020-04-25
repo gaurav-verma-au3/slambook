@@ -1,10 +1,10 @@
 const ObjectId = require("mongodb").ObjectID;
 module.exports = {
   postResponse: (req, res) => {
-    const { response, slamId } = req.body;
+    const { questions, slam_id } = req.body;
     db.collection("slams").findOneAndUpdate(
-      { _id: ObjectId(slamId) },
-      { $set: response },
+      { _id: ObjectId(slam_id) },
+      { $set: { questions: questions, is_answered: true } },
       (err, data) => {
         if (err) {
           res.send({

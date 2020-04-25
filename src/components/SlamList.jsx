@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SlamTile from "./SlamTile";
 import AuthRedirect from "./AuthRedirect";
+import { fetchAllEntries } from "../store/api/slamEntriesAPI";
+import { useSnackbar } from "notistack";
 const SlamList = () => {
-  const slamEntries = useSelector((state) => state.slamEntries);
+  const { slamEntries, isLoggedIn } = useSelector((state) => state);
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchAllEntries(isLoggedIn, enqueueSnackbar);
+    }
+  }, []);
 
   return (
     <div className="container">

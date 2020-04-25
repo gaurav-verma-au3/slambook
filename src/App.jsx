@@ -33,8 +33,9 @@ function App() {
           <Route exact path="/signup" component={Signup} />
           <Route
             path="/app"
-            component={() => (
+            render={(props) => (
               <Menu
+                {...props}
                 userName={userName}
                 setShowPallete={setShowPallete}
                 showPallete={showPallete}
@@ -46,18 +47,21 @@ function App() {
           <Route
             exact
             path="/app/add/user"
-            component={() => <AddEntry bg={bg} />}
+            render={(props) => <AddEntry {...props} bg={bg} />}
           />
+          <Route exact path="/app/add/questions" component={AddQuestions} />
           <Route
-            exact
-            path="/app/add/questions"
-            component={() => <AddQuestions />}
+            path="/app/slam/:id"
+            render={(props) => <SlamPage {...props} setBg={setBg} bg={bg} />}
           />
-          <Route path="/app/slam/:id" component={SlamPage} />
           <Route
             path="/app/fill/slam/:slam_id"
-            component={() => (
-              <PostResponse setUserName={setUserName} setBg={setBg} />
+            render={(props) => (
+              <PostResponse
+                {...props}
+                setUserName={setUserName}
+                setBg={setBg}
+              />
             )}
           />
         </Router>

@@ -10,6 +10,7 @@ import ReactTyped from "react-typed";
 import BgPallete from "./BgPallete";
 import { logout } from "../store/isLoggedIn/actions/isLoggedIn.actions";
 import { handleNotification } from "../utils";
+import { clearEntries } from "../store/slamEntries/actions/slamEntries.actions";
 
 const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearEntries());
     handleNotification(enqueueSnackbar, "Logged Out Successfully", "success");
   };
 
@@ -48,33 +50,31 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
               ) : null}
             </div>
             {isLoggedIn.success ? (
-            <div className="col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center">
-              <div className="d-flex justify-content-center align-items-center">
-                <ColorLensIcon
-                  style={{
-                    cursor: "pointer",
-                  }}
-                  className="mx-2 text-dark"
-                  onClick={(_) => setShowPallete(!showPallete)}
-                />
-                <Link to="/app/add/user">
-                  <GroupAddIcon className="mx-2 text-dark" />
-                </Link>
-                <Link to="/app/add/Questions">
-                  <PostAddIcon className="mx-2 text-dark" />
-                </Link>
-                <LockIcon
-                  className="mx-2 text-dark cursor-pointer"
-                  onClick={(e) => handleLogout()}
-                />
+              <div className="col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-content-center align-items-center">
+                  <ColorLensIcon
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    className="mx-2 text-dark"
+                    onClick={(_) => setShowPallete(!showPallete)}
+                  />
+                  <Link to="/app/add/user">
+                    <GroupAddIcon className="mx-2 text-dark" />
+                  </Link>
+                  <Link to="/app/add/Questions">
+                    <PostAddIcon className="mx-2 text-dark" />
+                  </Link>
+                  <LockIcon
+                    className="mx-2 text-dark cursor-pointer"
+                    onClick={(e) => handleLogout()}
+                  />
+                </div>
               </div>
-            </div>
             ) : null}
           </div>
           <div className="col-12">
-            <p className="font-weight-bold text-center">
-              Welcome, {userName}
-            </p>
+            <p className="font-weight-bold text-center">Welcome, {userName}</p>
           </div>
         </div>
 

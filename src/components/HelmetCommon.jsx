@@ -5,7 +5,7 @@ const HelmetCommon = () => {
     <div>
       <Helmet>
         <meta
-          name="description"
+          name="og:description"
           content="New age slambook to preserve your memories forever"
         />
       </Helmet>

@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { markFavourite } from "../store/slamEntries/actions/slamEntries.actions";
 import Share from "./Share";
 import { API_ORIGIN_URL, appRoot } from "../config";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,29 +76,39 @@ const SlamTile = ({
       <Card
         className={`${
           is_answered ? "border-thick-active" : "border-thick-mute"
-        } ${classes.root} p-2`}
+        } ${classes.root}`}
         style={{ background: "transparent" }}
       >
         <div id={custom_bg}>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                {name[0].toUpperCase()}
-              </Avatar>
-            }
-            // action={
-            //   <IconButton aria-label="Share">
-            //     <ShareIcon />
-            //   </IconButton>
-            // }
-            title={name}
-            // subheader="September 14, 2016"
-          />
-          <CardContent>
-            <Typography variant="body2" color="textPrimary" component="p">
-              {message}
-            </Typography>
-          </CardContent>
+          <Link
+            style={!is_answered ? { pointerEvents: "none" } : {}}
+            to={`/app/slam/${_id}`}
+          >
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  {name[0].toUpperCase()}
+                </Avatar>
+              }
+              // action={
+              //   <IconButton aria-label="Share">
+              //     <ShareIcon />
+              //   </IconButton>
+              // }
+              title={name}
+              // subheader="September 14, 2016"
+            />
+            <CardContent>
+              <Typography
+                variant="body2"
+                style={{ height: "10vh" }}
+                color="textPrimary"
+                component="p"
+              >
+                {message}
+              </Typography>
+            </CardContent>
+          </Link>
           <CardActions disableSpacing>
             <IconButton aria-label="add to favorites">
               <FavoriteIcon

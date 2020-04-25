@@ -30,6 +30,12 @@ export const markFavourite = (payload) => {
   };
 };
 
+export const clearEntries = () => {
+  return {
+    type: "CLEAR_ENTRY",
+  };
+};
+
 export const updateEntriesInStore = (payload) => {
   return {
     type: "UPDATE_ENTRIES_IN_STORE",

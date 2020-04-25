@@ -109,8 +109,7 @@ module.exports = {
     );
   },
   getSlamDetails: (req, res) => {
-    const { _id } = req.body;
-    const { _id: owner_id } = req.payload;
+    const { _id, owner_id } = req.params;
     db.collection("slams")
       .find({ _id: ObjectID(_id) })
       .toArray((err, data) => {

@@ -9,7 +9,6 @@ const PostResponse = (props) => {
   const { slam_id } = useParams();
   const [slam, setSlam] = useState(null);
   const [owner, setOwner] = useState(null);
-  const [response, setResponse] = useState({});
 
   const getSlam = async (slam_id) => {
     const url = `${API_ORIGIN_URL}/fill/getslam/${slam_id}`;
@@ -26,15 +25,26 @@ const PostResponse = (props) => {
     if (slam) setBg(slam.custom_bg);
   });
   return (
-    <div
-      className="container-fluid m-0 p-0"
-      id={`${slam && slam.custom_bg ? slam.custom_bg : "background-9"}`}
-    >
-      <HelmetShare message={slam.message} />
-      <div className="row d-flex justify-content-center">
-        {slam ? <ResponseForm questions={slam.questions} /> : null}
-      </div>
-    </div>
+    <>
+      {slam && slam.is_answered ? (
+        <h4 className="text-center text-muted my-5">Response already Exists</h4>
+      ) : (
+        <div
+          className="container-fluid m-0 p-0"
+          id={`${slam && slam.custom_bg ? slam.custom_bg : "background-9"}`}
+        >
+          <HelmetShare message={slam?.message} />
+
+          <div className="row d-flex justify-content-center">
+            {slam ? (
+              <ResponseForm questions={slam.questions} slam_id={slam_id} />
+            ) : (
+              <h4 className="text-center">Page Not Found</h4>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 export default PostResponse;

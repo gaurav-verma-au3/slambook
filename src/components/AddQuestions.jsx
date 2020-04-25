@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-
 import { isMobile } from "react-device-detect";
 import { useSelector } from "react-redux";
 import AuthRedirect from "./AuthRedirect";
