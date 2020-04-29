@@ -67,8 +67,7 @@ const ResponseForm = ({ questions, slam_id, classes }) => {
   const handleSubmit = () => {
     let q = responses;
     q.forEach((v) => {
-      if (!v.answer) {
-        v.answer = "";
+      if (v.answer.length) {
         v.remainSilent = false;
       }
       delete v.isOpen;

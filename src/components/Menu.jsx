@@ -1,11 +1,13 @@
 import React from "react";
+import { isMobile } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import LockIcon from "@material-ui/icons/Lock";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import HomeIcon from "@material-ui/icons/Home";
 import ReactTyped from "react-typed";
 import BgPallete from "./BgPallete";
 import { logout } from "../store/isLoggedIn/actions/isLoggedIn.actions";
@@ -25,7 +27,8 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
   return (
     <div className="container-fluid py-3">
       <div className="row d-flex justify-content-center rounded align-items-center rounded">
-        <div className="col-12 rounded" style={{ border: "5px solid #161718" }}>
+        {/* <div className="col-12 rounded" style={{ border: "5px solid #161718" }}> */}
+        <div className="col-12 rounded">
           <div className="row">
             <div
               className="col-md-2 com-sm-12 py-2 justify-content-center d-flex align-items-center"
@@ -47,34 +50,67 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                     </div>
                   </div>
                 </>
-              ) : null}
+              ) : (
+                <p className="font-weight-bold text-center pt-4">
+                  Welcome, {userName}
+                </p>
+              )}
             </div>
             {isLoggedIn.success ? (
-              <div className="col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center">
+              <div
+                className={
+                  isMobile
+                    ? `fixed-bottom d-flex justify-content-around py-3 text-light bg-secondary`
+                    : `col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center`
+                }
+              >
                 <div className="d-flex justify-content-center align-items-center">
+                  <Link to="/">
+                    <HomeIcon
+                      className={
+                        isMobile
+                          ? " mx-3 text-light"
+                          : "mx-2 text-dark cursor-pointer"
+                      }
+                    />
+                  </Link>
                   <ColorLensIcon
-                    style={{
-                      cursor: "pointer",
-                    }}
-                    className="mx-2 text-dark"
+                    className={
+                      isMobile
+                        ? " mx-3 text-light"
+                        : "mx-2 text-dark cursor-pointer"
+                    }
                     onClick={(_) => setShowPallete(!showPallete)}
                   />
                   <Link to="/app/add/user">
-                    <GroupAddIcon className="mx-2 text-dark" />
+                    <GroupAddIcon
+                      className={
+                        isMobile
+                          ? " mx-3 text-light"
+                          : "mx-2 text-dark cursor-pointer"
+                      }
+                    />
                   </Link>
                   <Link to="/app/add/Questions">
-                    <PostAddIcon className="mx-2 text-dark" />
+                    <PostAddIcon
+                      className={
+                        isMobile
+                          ? " mx-3 text-light"
+                          : "mx-2 text-dark cursor-pointer"
+                      }
+                    />
                   </Link>
                   <LockIcon
-                    className="mx-2 text-dark cursor-pointer"
+                    className={
+                      isMobile
+                        ? " mx-3 text-light"
+                        : "mx-2 text-dark cursor-pointer"
+                    }
                     onClick={(e) => handleLogout()}
                   />
                 </div>
               </div>
             ) : null}
-          </div>
-          <div className="col-12">
-            <p className="font-weight-bold text-center">Welcome, {userName}</p>
           </div>
         </div>
 

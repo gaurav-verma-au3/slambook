@@ -13,9 +13,10 @@ import { SnackbarProvider } from "notistack";
 import "./components/styles/landingPage.css";
 import "./App.css";
 import { useSelector } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 function App() {
-  const [bg, setBg] = useState("background-9");
+  const [bg, setBg] = useState("background-5");
   const [showPallete, setShowPallete] = useState(false);
   const [userName, setUserName] = useState();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -25,7 +26,21 @@ function App() {
   }, [isLoggedIn]);
 
   return (
-    <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
+    <SnackbarProvider
+      maxSnack={3}
+      autoHideDuration={3000}
+      anchorOrigin={
+        isMobile
+          ? {
+              vertical: "top",
+              horizontal: "center",
+            }
+          : {
+              vertical: "bottom",
+              horizontal: "right",
+            }
+      }
+    >
       <div className="App container-fluid full-height" id={bg}>
         <Router>
           <Route exact path="/" component={Landing} />

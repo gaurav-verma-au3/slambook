@@ -51,9 +51,6 @@ const SlamTile = ({
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
-  // const handleExpandClick = () => {
-  //   setExpanded(!expanded);
-  // };
 
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
@@ -110,11 +107,11 @@ const SlamTile = ({
             </CardContent>
           </Link>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon
-                className={`${isFavourite ? "text-danger" : ""}`}
-                onClick={(e) => handleMarkFavourite(_id, !isFavourite)}
-              />
+            <IconButton
+              onClick={(e) => handleMarkFavourite(_id, !isFavourite)}
+              aria-label="add to favorites"
+            >
+              <FavoriteIcon className={`${isFavourite ? "text-danger" : ""}`} />
             </IconButton>
             <IconButton
               className={clsx(classes.expand, {

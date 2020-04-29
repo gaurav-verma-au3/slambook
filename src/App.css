@@ -11,11 +11,11 @@
 }
 
 .border-thick-mute {
-  border: 3px solid #939494;
+  border: 5px solid #404242;
 }
 
 .border-thick-active {
-  border: 3px solid #57f941;
+  border: 5px solid #46b637d0;
 }
 
 .full-height {
@@ -64,7 +64,7 @@
 }
 
 .typed-punch {
-  color: #f2f3f4;
+  color: #505050;
   font-family: "Courgette", cursive;
   font-weight: bolder;
   font-size: 3rem;

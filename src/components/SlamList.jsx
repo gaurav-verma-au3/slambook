@@ -20,7 +20,7 @@ const SlamList = () => {
       <div className="row ">
         {slamEntries &&
           slamEntries.map((slam, idx) => (
-            <div className="col-md-3 col-sm-12 mb-3">
+            <div className="col-md-3 col-sm-12 mb-3" key={slam._id}>
               <SlamTile id={slam._id} slam={slam} />
             </div>
           ))}

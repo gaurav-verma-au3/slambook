@@ -17,3 +17,10 @@ export const reUpdateLoggedInUser = (payload) => {
     payload: payload,
   };
 };
+
+export const updateQuestions = (payload) => {
+  return {
+    type: "UPDATE_QUESTIONS",
+    payload,
+  };
+};

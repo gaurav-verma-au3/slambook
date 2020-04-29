@@ -18,7 +18,12 @@ const isLoggedInReducer = (
       email,
     });
   }
-
+  if (action.type === "UPDATE_QUESTIONS") {
+    return (isLoggedIn = {
+      ...isLoggedIn,
+      questions: action.payload,
+    });
+  }
   if (action.type === "LOGOUT") {
     localStorage.clear();
     return (isLoggedIn = {

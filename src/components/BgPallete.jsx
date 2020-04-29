@@ -8,7 +8,7 @@ const style = {
 };
 
 const BgPallete = ({ setBg, setShowPallete }) => {
-  const bgs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const bgs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
   const handleBgChange = (val, e) => {
     e.stopPropagation();
@@ -37,7 +37,7 @@ const BgPallete = ({ setBg, setShowPallete }) => {
                   }
             }
             id={`background-${v}`}
-            className="  rounded-circle border my-2 "
+            className="  rounded-circle border border-dark my-2 "
             onClick={(e) => handleBgChange(v, e)}
           ></div>
         );
@@ -50,7 +50,7 @@ const BgPallete = ({ setBg, setShowPallete }) => {
               ? { ...style, fontSize: "2rem", marginRight: "1.5px" }
               : { ...style, fontSize: "3.5rem", marginRight: "3px" }
           }
-          className="text-light my-2"
+          className="text-dark my-2"
           onClick={() => setShowPallete(false)}
         />
       )}
