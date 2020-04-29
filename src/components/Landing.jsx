@@ -20,10 +20,10 @@ const Landing = () => {
           </p>
         </div>
         <div className="row d-flex py-3 justify-content-center align-items-center">
-          <Link className="btn bg-green text-white btn-lg mx-2" to="/login">
+          <Link className="btn btn-dark text-white btn-lg mx-2" to="/login">
             Login
           </Link>
-          <Link className="btn bg-pink text-white btn-lg mx-2" to="/signup">
+          <Link className="btn btn-dark text-white btn-lg mx-2" to="/signup">
             Signup
           </Link>
         </div>

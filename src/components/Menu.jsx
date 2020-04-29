@@ -35,7 +35,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
               id="menu"
             >
               <Link to="/app/home" className="mt-3" id="menu-heading">
-                <ReactTyped strings={["SlamBook"]} typeSpeed={60} />
+                <ReactTyped strings={["Slambook"]} typeSpeed={60} />
               </Link>
             </div>
             <div className="col-md-8 col-sm-12">
@@ -52,7 +52,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                 </>
               ) : (
                 <p className="font-weight-bold text-center pt-4">
-                  Welcome, {userName}
+                  Welcome, {userName && userName.split(' ')[0]}
                 </p>
               )}
             </div>
@@ -60,7 +60,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
               <div
                 className={
                   isMobile
-                    ? `fixed-bottom d-flex justify-content-around py-3 text-light bg-secondary`
+                    ? `fixed-bottom d-flex flex-column justify-content-center pb-1 pt-3 text-light bg-secondary mobile-menu-shadow`
                     : `col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center`
                 }
               >
@@ -109,6 +109,17 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                     onClick={(e) => handleLogout()}
                   />
                 </div>
+
+                {isMobile && (
+                  <a
+                    style={{ fontSize: "0.6rem" }}
+                    className="text-center mt-2 text-light font-weight-light"
+                    href="https://gaurav-verma-au3.github.io"
+                    target="blank"
+                  >
+                    <p className="m-0">Developed By Gaurav Verma</p>
+                  </a>
+                )}
               </div>
             ) : null}
           </div>

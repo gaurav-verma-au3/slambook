@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
+import { validateLoginForm } from "../utils";
 
 import {
   TextField,
@@ -47,14 +48,32 @@ const Login = ({ classes }) => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+  });
+
+  const resetError = () => {
+    setError({
+      email: "",
+      password: "",
+    });
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
-    login(
-      e.target.email.value,
-      e.target.password.value,
-      dispatch,
-      enqueueSnackbar
-    );
+    console.log(e.target.email.value);
+    console.log("here");
+    let valid = validateLoginForm(e, setError);
+    if (valid) {
+      login(
+        e.target.email.value,
+        e.target.password.value,
+        dispatch,
+        enqueueSnackbar
+      );
+    }
   };
 
   return (
@@ -75,7 +94,9 @@ const Login = ({ classes }) => {
               </h2>
               <TextField
                 variant="outlined"
-                required
+                onChange={(e) => resetError()}
+                error={error.email.length ? true : false}
+                helperText={error.email}
                 className={`w-100 my-2 ${classes.root}`}
                 label="Email"
                 name="email"
@@ -99,8 +120,9 @@ const Login = ({ classes }) => {
                 }}
               />
               <TextField
-                // error={}
-                // helperText={?"Required Field":''}
+                onChange={(e) => resetError()}
+                error={error.password.length ? true : false}
+                helperText={error.password}
                 type="password"
                 required
                 name="password"

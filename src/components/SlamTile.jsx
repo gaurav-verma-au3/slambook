@@ -72,7 +72,9 @@ const SlamTile = ({
     <>
       <Card
         className={`${
-          is_answered ? "border-thick-active" : "border-thick-mute"
+          is_answered
+            ? "border-active shadow shadow-lg"
+            : "border-mute shadow shadow-lg"
         } ${classes.root}`}
         style={{ background: "transparent" }}
       >

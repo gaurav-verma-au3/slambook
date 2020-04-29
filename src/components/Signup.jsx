@@ -16,7 +16,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ReactTyped from "react-typed";
 import { API_ORIGIN_URL } from "../config";
 import { useSnackbar } from "notistack";
-import { handleNotification } from "../utils";
+import { handleNotification, validateForm } from "../utils";
 import { questions } from "../questions";
 const styles = {
   root: {
@@ -48,33 +48,55 @@ const styles = {
 const Signup = (props) => {
   const { classes } = props;
 
-  const [formData, setFormData] = useState({ bg: "background-9" });
+  const [formData, setFormData] = useState({
+    email: "",
+    name: "",
+    password: "",
+    confirmPassword: "",
+    bg: "background-9",
+  });
   const [response, setResponse] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
+  const [error, setError] = useState({
+    email: "",
+    name: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const handleChange = (e) => {
+    setError({
+      email: "",
+      name: "",
+      password: "",
+      confirmPassword: "",
+    });
     const { name, value } = e.target;
     setResponse(null);
     setFormData({ ...formData, [name]: value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `${API_ORIGIN_URL}/auth/signup`;
-    fetch(url, {
-      method: "post",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        setResponse(data);
-        const { message, error } = data;
-        const variant = error ? "error" : "success";
-        handleNotification(enqueueSnackbar, message, variant);
-      });
+
+    let valid = await validateForm(setError, formData, setFormData);
+
+    if (valid) {
+      const url = `${API_ORIGIN_URL}/auth/signup`;
+      fetch(url, {
+        method: "post",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          setResponse(data);
+          const { message, error } = data;
+          const variant = error ? "error" : "success";
+          handleNotification(enqueueSnackbar, message, variant);
+        });
+    }
   };
 
   useEffect(() => {
@@ -100,9 +122,11 @@ const Signup = (props) => {
                   <ReactTyped strings={["SignUp..."]} typeSpeed={80} />
                 </h2>
                 <TextField
+                  error={error.name.length ? true : false}
+                  helperText={error.name}
                   variant="outlined"
-                  required
                   label="Full Name"
+                  value={formData.name}
                   name="name"
                   className={`my-2 w-100 ${classes.root}`}
                   InputLabelProps={{
@@ -126,8 +150,10 @@ const Signup = (props) => {
                   onChange={(e) => handleChange(e)}
                 />
                 <TextField
+                  error={error.email.length ? true : false}
+                  helperText={error.email}
                   variant="outlined"
-                  required
+                  value={formData.email}
                   type="email"
                   className={`my-2 w-100 ${classes.root}`}
                   label="Email"
@@ -153,14 +179,14 @@ const Signup = (props) => {
                   onChange={(e) => handleChange(e)}
                 />
                 <TextField
-                  // error={}
-                  // helperText={?"Required Field":''}
+                  error={error.password.length ? true : false}
+                  helperText={error.password}
                   type="password"
                   name="password"
-                  required
                   variant="outlined"
                   className={`my-2 w-100 ${classes.root}`}
                   label="Password"
+                  value={formData.password}
                   InputLabelProps={{
                     classes: {
                       root: classes.cssLabel,
@@ -182,11 +208,11 @@ const Signup = (props) => {
                   onChange={(e) => handleChange(e)}
                 />
                 <TextField
-                  // error={}
-                  // helperText={?"Required Field":''}
+                  error={error.confirmPassword.length ? true : false}
+                  helperText={error.confirmPassword}
                   type="password"
-                  required
                   name="confirmPassword"
+                  value={formData.confirmPassword}
                   variant="outlined"
                   className={`my-2 w-100 ${classes.root}`}
                   label="Re Type Password"
