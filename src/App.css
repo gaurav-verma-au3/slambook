@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Condiment&family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Courgette&display=swap");
-@import url('https://fonts.googleapis.com/css?family=Sacramento&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Sacramento&display=swap");
 
 * ::-webkit-scrollbar {
   display: none;
@@ -37,7 +37,7 @@
 }
 
 #menu-heading {
-  font-family: 'Sacramento', cursive;
+  font-family: "Sacramento", cursive;
   font-size: 2rem;
   text-shadow: 1px 1px #241f1f;
   color: #161718;
@@ -53,13 +53,13 @@
 }
 
 .main-heading {
-  font-family: 'Sacramento', cursive;
+  font-family: "Sacramento", cursive;
   font-size: 5rem;
   text-shadow: 2px 2px #241f1f;
   color: #161718;
 }
 
-.four-zero-four{
+.four-zero-four {
   font-size: 16vh;
 }
 
@@ -81,7 +81,7 @@
 
 .typed-punch {
   color: #505050;
-  font-family: 'Sacramento', cursive;
+  font-family: "Sacramento", cursive;
   font-weight: bolder;
   font-size: 3rem;
 }
@@ -97,7 +97,41 @@
     font-size: 13px;
   }
 }
-/* Hide scrollbar for Chrome, Safari and Opera */
+
+.pointer-none {
+  pointer-events: none;
+}
+
+/*opacity custom*/
+.opacity-0 {
+  opacity: 0 !important;
+}
+.opacity-1 {
+  opacity: 0.2 !important;
+}
+.opacity-2 {
+  opacity: 0.4 !important;
+}
+.opacity-3 {
+  opacity: 0.6 !important;
+}
+.opacity-4 {
+  opacity: 0.8 !important;
+}
+.opacity-5 {
+  opacity: 1 !important;
+}
+
+/* Maybe even support hover opacity shifts */
+.opacity-0h5 {
+  opacity: 0 !important;
+  transition: opacity 0.25s ease-in-out !important;
+  -moz-transition: opacity 0.25s ease-in-out !important;
+  -webkit-transition: opacity 0.25s ease-in-out !important;
+}
+.opacity-0h5:hover {
+  opacity: 1 !important;
+}
 
 /* font-family: 'Comic Neue', cursive;
 font-family: 'Roboto', sans-serif;

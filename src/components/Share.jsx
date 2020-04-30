@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   FacebookShareButton,
   InstapaperShareButton,
@@ -17,20 +17,37 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
 import AuthRedirect from "./AuthRedirect";
+import { handleNotification } from "../utils";
+import { useSnackbar } from "notistack";
 const Share = ({ url, media }) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const textToCopy = useRef(null);
+  const copyToClipboard = () => {
+    const dummy = document.createElement("input");
+    document.body.appendChild(dummy);
+    dummy.setAttribute("value", url);
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+    handleNotification(enqueueSnackbar, "Copied to Clipboard", "success");
+  };
   return (
     <>
-    <AuthRedirect />
+      <AuthRedirect />
       <div className="container-fluid">
         <div className="row my-1">
           <div className="col-12 d-flex justify-content-around align-items-center">
+            <div className="bg-secondary p-2 d-flex justify-content-center align-items-center rounded-circle">
+              <FileCopyIcon
+                style={{ fontSize: '1.2rem' ,cursor: "pointer" }}
+                onClick={copyToClipboard}
+              />
+            </div>
             <PinterestShareButton url={url} media={media}>
               <PinterestIcon size={32} round />
             </PinterestShareButton>
-            <InstapaperShareButton url={url}>
-              <InstapaperIcon size={32} round />
-            </InstapaperShareButton>
             <FacebookShareButton url={url}>
               <FacebookIcon size={32} round />
             </FacebookShareButton>
