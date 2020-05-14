@@ -5,9 +5,27 @@ import App from "./App";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { store } from "./store";
+import { SnackbarProvider } from "notistack";
+import { isMobile } from "react-device-detect";
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <SnackbarProvider
+      maxSnack={3}
+      autoHideDuration={isMobile ? 1000 : 1500}
+      anchorOrigin={
+        isMobile
+          ? {
+              vertical: "bottom",
+              horizontal: "center",
+            }
+          : {
+              vertical: "bottom",
+              horizontal: "right",
+            }
+      }
+    >
+      <App />
+    </SnackbarProvider>
   </Provider>,
   document.getElementById("root")
 );

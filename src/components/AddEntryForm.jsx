@@ -65,7 +65,7 @@ const AddEntryForm = ({ bg, classes }) => {
 
   return (
     <form
-      className={` rounded border border-dark ${isMobile ? "p-2" : "p-4"}`}
+      className={` rounded border border-dark  ${isMobile ? "p-2" : "p-4"}`}
       id={custom_bg}
     >
       <AuthRedirect />

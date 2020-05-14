@@ -44,7 +44,7 @@ module.exports = {
           message: "Email not Registered !",
         });
       else if (user && bcrypt.compareSync(password, user.password)) {
-        const { name, email, image, _id, questions } = user;
+        const { name, email, image, _id, questions, custom_bg } = user;
         const jwt = require("jsonwebtoken");
         const token = jwt.sign({ _id, name, email }, process.env.TOKEN_SECRET);
         let data = {
@@ -57,6 +57,7 @@ module.exports = {
           email,
           image,
           questions,
+          custom_bg,
         };
         res.json(data);
       } else {

@@ -3,9 +3,9 @@ import AddEntryForm from "./AddEntryForm";
 import { isMobile } from "react-device-detect";
 import AuthRedirect from "./AuthRedirect";
 
-const AddEntry = ({ bg}) => {
+const AddEntry = ({ bg }) => {
   return (
-    <div className={`container-fluid ${isMobile ? "py-2" : "py-5"}`}>
+    <div className={`container-fluid ${isMobile ? "py-3 mb-5" : "py-5"}`}>
       <AuthRedirect />
       <div className="row">
         <div className="col-12 d-flex justify-content-center align-items-center">

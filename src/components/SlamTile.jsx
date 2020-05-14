@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
@@ -13,13 +12,15 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import DeleteIcon from "@material-ui/icons/Delete";
 import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useDispatch, useSelector } from "react-redux";
-import { markFavourite } from "../store/slamEntries/actions/slamEntries.actions";
+import {
+  markFavourite,
+  deleteEntry,
+} from "../store/slamEntries/actions/slamEntries.actions";
 import Share from "./Share";
-import { API_ORIGIN_URL, appRoot } from "../config";
+import { appRoot } from "../config";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +52,6 @@ const SlamTile = ({
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
-
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
 
@@ -68,63 +68,97 @@ const SlamTile = ({
       })
     );
   };
+  const handleDelete = (_id) => {
+    dispatch(deleteEntry({ _id, isLoggedIn, enqueueSnackbar }));
+  };
   return (
     <>
       <Card
-        className={`${
-          is_answered
-            ? "shadow shadow-lg"
-            : "opacity-3 border-mute shadow shadow-lg"
-        } ${classes.root}`}
+        className={` rounded shadow shadow-lg ${classes.root}`}
         style={{ background: "transparent" }}
       >
         <div id={custom_bg}>
-          <Link
-            style={!is_answered ? { pointerEvents: "none" } : {}}
-            to={`/app/slam/${_id}`}
-          >
-            <CardHeader
-              avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  {name[0].toUpperCase()}
-                </Avatar>
-              }
-              // action={
-              //   <IconButton aria-label="Share">
-              //     <ShareIcon />
-              //   </IconButton>
-              // }
-              title={name}
-              // subheader="September 14, 2016"
-            />
-            <CardContent>
-              <Typography
-                variant="body2"
-                style={{ height: "10vh" }}
-                color="textPrimary"
-                component="p"
-              >
-                {message}
-              </Typography>
-            </CardContent>
-          </Link>
+          {is_answered ? (
+            <Link
+              className="text-dark font-weight-bold"
+              to={`/app/slam/${_id}`}
+            >
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    {name[0].toUpperCase()}
+                  </Avatar>
+                }
+                title={name}
+              />
+              <CardContent>
+                <Typography
+                  variant="body2"
+                  style={{ height: "10vh" }}
+                  color="textPrimary"
+                  component="p"
+                >
+                  {message}
+                </Typography>
+              </CardContent>
+            </Link>
+          ) : (
+            <div className="m-0 p-0">
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    {name[0].toUpperCase()}
+                  </Avatar>
+                }
+                title={name}
+              />
+              <CardContent>
+                <Typography
+                  variant="body2"
+                  style={{ height: "10vh" }}
+                  color="textPrimary"
+                  component="p"
+                >
+                  {message}
+                </Typography>
+              </CardContent>
+            </div>
+          )}
+          <small>
+            <p
+              className={`font-weight-bold  text-center ${
+                is_answered ? "text-success" : "text-danger"
+              }`}
+            >
+              {is_answered ? "Recieved" : "Pending"}
+            </p>
+          </small>
           <CardActions disableSpacing>
             <IconButton
               onClick={(e) => handleMarkFavourite(_id, !isFavourite)}
-              aria-label="add to favorites"
+              aria-label="Add to favorites"
             >
               <FavoriteIcon className={`${isFavourite ? "text-danger" : ""}`} />
             </IconButton>
             <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={(e) => setExpanded(!expanded)}
-              aria-expanded={expanded}
-              aria-label="share"
+              className="text-danger"
+              // onClick={(e) => }
+              aria-label="Delete"
             >
-              <ShareIcon />
+              <DeleteIcon onClick={(e) => handleDelete(_id)} />
             </IconButton>
+            {!is_answered ? (
+              <IconButton
+                className={clsx(classes.expand, {
+                  [classes.expandOpen]: expanded,
+                })}
+                onClick={(e) => setExpanded(!expanded)}
+                aria-expanded={expanded}
+                aria-label="share"
+              >
+                <ShareIcon />
+              </IconButton>
+            ) : null}
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>

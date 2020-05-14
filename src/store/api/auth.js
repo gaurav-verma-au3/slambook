@@ -57,6 +57,29 @@ export const updatePassword = (form, setResponse, token) => {
     .then((data) => setResponse(data));
 };
 
+export const updateBgAPI = (token, enqueueSnackbar, custom_bg) => {
+  const url = `${API_ORIGIN_URL}/user/update-bg`;
+
+  const body = {
+    custom_bg,
+  };
+
+  fetch(url, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(body),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      let { message, error } = data;
+      let variant = error ? "error" : "success";
+      // handleNotification(enqueueSnackbar, message, variant);
+    });
+};
+
 export const updateProfile = (form, setResponse, token, dispatch) => {
   const url = `${API_ORIGIN_URL}/profile`;
 

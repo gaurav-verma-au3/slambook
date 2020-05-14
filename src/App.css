@@ -92,9 +92,46 @@
   color: black;
   font-weight: 600;
 }
+
 @media (max-width: 576px) {
-  * {
+  #root {
     font-size: 13px;
+  }
+ .question-list {
+  font-size: 1rem;
+  font-family: "Comic Neue", cursive;
+  color: black;
+  font-weight: 600;
+}
+  #menu-heading {
+    font-family: "Sacramento", cursive;
+    font-size: 2rem;
+    text-shadow: 1px 1px #241f1f;
+    color: #161718;
+  }
+    #help{
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 319px) {
+  * {
+    font-size: 11px;
+  }
+ .question-list {
+  font-size: 1rem;
+  font-family: "Comic Neue", cursive;
+  color: black;
+  font-weight: 600;
+}
+  #menu-heading {
+    font-family: "Sacramento", cursive;
+    font-size: 2rem;
+    text-shadow: 1px 1px #241f1f;
+    color: #161718;
+  }
+  #help{
+    font-size: 1rem;
   }
 }
 

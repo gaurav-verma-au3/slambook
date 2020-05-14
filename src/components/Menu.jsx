@@ -6,18 +6,28 @@ import PostAddIcon from "@material-ui/icons/PostAdd";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import LockIcon from "@material-ui/icons/Lock";
-import { Link } from "react-router-dom";
+import InfoIcon from "@material-ui/icons/Info";
 import HomeIcon from "@material-ui/icons/Home";
+import { Link } from "react-router-dom";
 import ReactTyped from "react-typed";
 import BgPallete from "./BgPallete";
 import { logout } from "../store/isLoggedIn/actions/isLoggedIn.actions";
 import { handleNotification } from "../utils";
 import { clearEntries } from "../store/slamEntries/actions/slamEntries.actions";
-
+import HowTo from "./HowTo";
 const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const [helpOpen, setHelpOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setHelpOpen(true);
+  };
+
+  const handleClose = () => {
+    setHelpOpen(false);
+  };
   const handleLogout = () => {
     dispatch(logout());
     dispatch(clearEntries());
@@ -25,7 +35,18 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
   };
 
   return (
-    <div className="container-fluid py-3">
+    <div
+      className={`container-fluid  ${
+        !isMobile
+          ? "fixed-top bg-secondary py-2"
+          : "fixed-top bg-secondary py-1"
+      }`}
+    >
+      <HowTo
+        handleClickOpen={handleClickOpen}
+        helpOpen={helpOpen}
+        handleClose={handleClose}
+      />
       <div className="row d-flex justify-content-center rounded align-items-center rounded">
         {/* <div className="col-12 rounded" style={{ border: "5px solid #161718" }}> */}
         <div className="col-12 rounded">
@@ -52,7 +73,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                 </>
               ) : (
                 <p className="font-weight-bold text-center pt-4">
-                  Welcome, {userName && userName.split(' ')[0]}
+                  Welcome, {userName && userName.split(" ")[0]}
                 </p>
               )}
             </div>
@@ -100,6 +121,15 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                       }
                     />
                   </Link>
+
+                  <InfoIcon
+                    className={
+                      isMobile
+                        ? " mx-3 text-light"
+                        : "mx-2 text-dark cursor-pointer"
+                    }
+                    onClick={handleClickOpen}
+                  />
                   <LockIcon
                     className={
                       isMobile

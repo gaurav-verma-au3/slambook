@@ -51,6 +51,7 @@ export const deleteEntryAPI = (_id, isLoggedIn, enqueueSnackbar) => {
   })
     .then((res) => res.json())
     .then((data) => {
+      handleNotification(enqueueSnackbar, "Slam Entry Deleted", "error");
       fetchAllEntries(isLoggedIn, enqueueSnackbar);
     });
 };
@@ -98,7 +99,7 @@ export const fetchAllEntries = (isLoggedIn, enqueueSnackbar) => {
     .then((res) => res.json())
     .then((data) => {
       const variant = data.error ? "error" : "success";
-      handleNotification(enqueueSnackbar, data.message, variant);
+      // handleNotification(enqueueSnackbar, data.message, variant);
       //notistack
       store.dispatch(updateEntriesInStore(data.slams));
     });

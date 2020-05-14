@@ -14,61 +14,64 @@ import Landing from "./components/Landing";
 import PostResponse from "./components/PostResponse";
 import AddQuestions from "./components/AddQuestions";
 import Menu from "./components/Menu";
-import { SnackbarProvider } from "notistack";
+import { useSnackbar } from "notistack";
 import "./components/styles/landingPage.css";
 import "./App.css";
 import { useSelector } from "react-redux";
 import { isMobile } from "react-device-detect";
 import FourZeroFour from "./components/FourZeroFour";
+import { updateBgAPI } from "./store/api/auth";
 
-const redirectto404 = () => {
-  return <Redirect to="/404" />;
-};
+// const redirectto404 = () => {
+//   return <Redirect to="/404" />;
+// };
 
 function App() {
   const [bg, setBg] = useState("background-5");
   const [showPallete, setShowPallete] = useState(false);
   const [userName, setUserName] = useState();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
-    if (isLoggedIn.success) setUserName(isLoggedIn.name);
+    if (isLoggedIn.success) {
+      setUserName(isLoggedIn.name);
+      setBg(isLoggedIn.custom_bg);
+    }
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    updateBgAPI(isLoggedIn.token, enqueueSnackbar, bg);
+  }, [bg]);
+
   return (
-    <SnackbarProvider
-      maxSnack={3}
-      autoHideDuration={isMobile ? 1000 : 1500}
-      anchorOrigin={
-        isMobile
-          ? {
-              vertical: "bottom",
-              horizontal: "center",
+    <div className="App container-fluid full-height" id={bg}>
+      <div>
+        <Router>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route
+            path="/app"
+            render={(props) => (
+              <Menu
+                {...props}
+                userName={userName}
+                setShowPallete={setShowPallete}
+                showPallete={showPallete}
+                setBg={setBg}
+              />
+            )}
+          />
+          <div
+            className="container px-0"
+            style={
+              !isMobile
+                ? {
+                    paddingTop: "15vh",
+                  }
+                : { paddingTop: "21.5vh" }
             }
-          : {
-              vertical: "bottom",
-              horizontal: "right",
-            }
-      }
-    >
-      <div className="App container-fluid full-height pb-5 " id={bg}>
-        <div className="pb-5">
-          <Router>
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
-            <Route
-              path="/app"
-              render={(props) => (
-                <Menu
-                  {...props}
-                  userName={userName}
-                  setShowPallete={setShowPallete}
-                  showPallete={showPallete}
-                  setBg={setBg}
-                />
-              )}
-            />
+          >
             <Route exact path="/app/home" component={SlamList} />
             <Route
               exact
@@ -93,21 +96,24 @@ function App() {
             <Route path="/404" component={FourZeroFour} />
             {/* <Route component={redirectto404} /> */}
             {/* </Switch> */}
-          </Router>
-        </div>
+          </div>
+        </Router>
         {!isMobile && (
-          <a
-            className="text-center text-muted font-weight-bold m-0 fixed-bottom"
-            href="https://gaurav-verma-au3.github.io"
-            target="blank"
-          >
-            <p className="text-center text-muted font-weight-bold m-0">
-              Developed By Gaurav Verma
+          <div className="container-fluid fixed-bottom bg-secondary py-2">
+            <p className="text-center text-light font-weight-bold m-0">
+              Developed By{" "}
+              <a
+                className="text-center text-light font-weight-bold m-0  "
+                href="https://gaurav-verma-au3.github.io"
+                target="blank"
+              >
+                Gaurav Verma
+              </a>
             </p>
-          </a>
+          </div>
         )}
       </div>
-    </SnackbarProvider>
+    </div>
   );
 }
 

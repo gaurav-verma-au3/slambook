@@ -114,12 +114,12 @@ const AddQuestions = ({ classes }) => {
   };
 
   return (
-    <div className={`container-fluid ${isMobile ? "py-2" : "py-5"}`}>
+    <div className={`container-fluid px-0 ${isMobile ? "py-3" : "py-5"}`}>
       <AuthRedirect />
       <div className="row">
         <div className="col-12">
-          <p className="text-center text-muted font-weight-bold">
-            Drag and Drop questions To Adjust Order
+          <p className="text-center font-weight-bold">
+            Drag and Drop questions To Arrange Order
           </p>
         </div>
         <div className="col-12 d-flex justify-content-center align-items-center">
@@ -162,61 +162,72 @@ const AddQuestions = ({ classes }) => {
           </div>
         </div>
       </div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => {
-            return (
-              <div className="row" ref={provided.innerRef}>
-                {questions &&
-                  questions.map((q, i) => {
-                    return (
-                      <Draggable
-                        key={q.question + i}
-                        draggableId={q.question}
-                        index={i}
-                      >
-                        {(provided, snapshot) => {
-                          return (
-                            <div
-                              className="col-12 d-flex justify-content-center  align-items-center"
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <div className="row w-100">
-                                <div className="col-1 d-flex font-weight-bolder justify-content-center">
-                                  <p className="m-0 my-2 question-list">
-                                    {i + 1}.
-                                  </p>
-                                </div>
-                                <div className="col-9">
-                                  <p
-                                    className="m-0 my-2 question-list"
-                                    key={q + i}
-                                  >
-                                    {q.question}
-                                  </p>
-                                </div>
-                                <div className="col-1 d-flex justify-content-center my-2">
-                                  <HighlightOffIcon
-                                    className="my-2 text-danger"
-                                    onClick={(e) => handleRemove(i)}
-                                    style={{ cursor: "pointer" }}
-                                  />
+      <div
+        className="container"
+        style={
+          isMobile
+            ? {
+                paddingBottom: "9vh",
+              }
+            : {}
+        }
+      >
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => {
+              return (
+                <div className="row" ref={provided.innerRef}>
+                  {questions &&
+                    questions.map((q, i) => {
+                      return (
+                        <Draggable
+                          key={q.question + i}
+                          draggableId={q.question}
+                          index={i}
+                        >
+                          {(provided, snapshot) => {
+                            return (
+                              <div
+                                className="col-12 d-flex justify-content-center  align-items-center"
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                              >
+                                <div className="row w-100">
+                                  <div className="col-1 col-xs-1 d-flex font-weight-bolder justify-content-center">
+                                    <p className="m-0 my-2 question-list">
+                                      {i + 1}.
+                                    </p>
+                                  </div>
+                                  <div className="col-9 col-xs-8">
+                                    <p
+                                      className="m-0 my-2 question-list"
+                                      key={q + i}
+                                    >
+                                      {q.question}
+                                    </p>
+                                  </div>
+                                  <div className="col-1 col-xs-1 d-flex justify-content-center my-2">
+                                    <HighlightOffIcon
+                                      className="my-2 text-danger"
+                                      onClick={(e) => handleRemove(i)}
+                                      style={{ cursor: "pointer" }}
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          );
-                        }}
-                      </Draggable>
-                    );
-                  })}
-                {provided.placeholder}
-              </div>
-            );
-          }}
-        </Droppable>
-      </DragDropContext>
+                            );
+                          }}
+                        </Draggable>
+                      );
+                    })}
+                  {provided.placeholder}
+                </div>
+              );
+            }}
+          </Droppable>
+        </DragDropContext>
+      </div>
     </div>
   );
 };

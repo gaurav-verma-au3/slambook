@@ -105,7 +105,7 @@ const SlamPage = (props) => {
                               ? "I choose my right to remain Silent"
                               : q.answer
                               ? `${q.answer}`
-                              : "Didn't Answered"}
+                              : "No Answer"}
                           </h5>
                         }
                         mediaBackgroundStyle={{
@@ -154,7 +154,9 @@ const SlamPage = (props) => {
                           <h5 className="text-dark">
                             {q.remainSilent
                               ? "I choose my right to remain Silent"
-                              : q.answer ? `${q.answer}` : "Didn't Answered"}
+                              : q.answer
+                              ? `${q.answer}`
+                              : "No Answer"}
                           </h5>
                         }
                         mediaBackgroundStyle={{

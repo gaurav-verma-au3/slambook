@@ -61,6 +61,27 @@ app.use("/api", auth);
 app.use("/api/fill", fill);
 app.use("/api/slam", tokenverify, slam);
 app.use("/api/questions", tokenverify, questions);
+app.put("/api/user/update-bg", tokenverify, (req, res) => {
+  const { custom_bg } = req.body;
+  const { _id } = req.payload;
+  db.collection("users").findOneAndUpdate(
+    { _id: ObjectId(_id) },
+    { $set: { custom_bg } },
+    (err, data) => {
+      if (err) {
+        res.send({
+          error: true,
+          message: "Unable to update background",
+        });
+      } else {
+        res.send({
+          error: false,
+          message: "Background Updated Successfully",
+        });
+      }
+    }
+  );
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log("Server listening on : ", PORT));
