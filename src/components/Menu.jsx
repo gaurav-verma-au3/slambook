@@ -8,14 +8,15 @@ import ColorLensIcon from "@material-ui/icons/ColorLens";
 import LockIcon from "@material-ui/icons/Lock";
 import InfoIcon from "@material-ui/icons/Info";
 import HomeIcon from "@material-ui/icons/Home";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ReactTyped from "react-typed";
 import BgPallete from "./BgPallete";
 import { logout } from "../store/isLoggedIn/actions/isLoggedIn.actions";
 import { handleNotification } from "../utils";
 import { clearEntries } from "../store/slamEntries/actions/slamEntries.actions";
 import HowTo from "./HowTo";
-const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
+const Menu = ({ setShowPallete, showPallete, bg, setBg, userName }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -31,15 +32,15 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(clearEntries());
+    history.replace("/");
     handleNotification(enqueueSnackbar, "Logged Out Successfully", "success");
   };
 
   return (
     <div
+      id={bg}
       className={`container-fluid  ${
-        !isMobile
-          ? "fixed-top bg-secondary py-2"
-          : "fixed-top bg-secondary py-1"
+        !isMobile ? "fixed-top py-2" : "fixed-top py-1"
       }`}
     >
       <HowTo
@@ -62,8 +63,8 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
             <div className="col-md-8 col-sm-12">
               {showPallete ? (
                 <>
-                  <div className="col-12">
-                    <div className="container d-flex justify-content-center align-items-center px-3">
+                  <div className="col-12 h-100">
+                    <div className="container h-100 d-flex justify-content-center align-items-center px-3">
                       <BgPallete
                         setShowPallete={setShowPallete}
                         setBg={setBg}
@@ -79,9 +80,10 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
             </div>
             {isLoggedIn.success ? (
               <div
+                id={isMobile ? bg : ""}
                 className={
                   isMobile
-                    ? `fixed-bottom d-flex flex-column justify-content-center pb-1 pt-3 text-light bg-secondary mobile-menu-shadow`
+                    ? `fixed-bottom d-flex flex-column justify-content-center pb-1 pt-3 text-light  mobile-menu-shadow`
                     : `col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center`
                 }
               >
@@ -90,7 +92,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                     <HomeIcon
                       className={
                         isMobile
-                          ? " mx-3 text-light"
+                          ? " mx-3 text-dark"
                           : "mx-2 text-dark cursor-pointer"
                       }
                     />
@@ -98,7 +100,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                   <ColorLensIcon
                     className={
                       isMobile
-                        ? " mx-3 text-light"
+                        ? " mx-3 text-dark"
                         : "mx-2 text-dark cursor-pointer"
                     }
                     onClick={(_) => setShowPallete(!showPallete)}
@@ -107,7 +109,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                     <GroupAddIcon
                       className={
                         isMobile
-                          ? " mx-3 text-light"
+                          ? " mx-3 text-dark"
                           : "mx-2 text-dark cursor-pointer"
                       }
                     />
@@ -116,7 +118,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                     <PostAddIcon
                       className={
                         isMobile
-                          ? " mx-3 text-light"
+                          ? " mx-3 text-dark"
                           : "mx-2 text-dark cursor-pointer"
                       }
                     />
@@ -125,7 +127,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                   <InfoIcon
                     className={
                       isMobile
-                        ? " mx-3 text-light"
+                        ? " mx-3 text-dark"
                         : "mx-2 text-dark cursor-pointer"
                     }
                     onClick={handleClickOpen}
@@ -133,7 +135,7 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
                   <LockIcon
                     className={
                       isMobile
-                        ? " mx-3 text-light"
+                        ? " mx-3 text-dark"
                         : "mx-2 text-dark cursor-pointer"
                     }
                     onClick={(e) => handleLogout()}
@@ -142,8 +144,9 @@ const Menu = ({ setShowPallete, showPallete, setBg, userName }) => {
 
                 {isMobile && (
                   <a
+                    id={bg}
                     style={{ fontSize: "0.6rem" }}
-                    className="text-center mt-2 text-light font-weight-light"
+                    className="text-center mt-2 text-dark font-weight-light"
                     href="https://gaurav-verma-au3.github.io"
                     target="blank"
                   >

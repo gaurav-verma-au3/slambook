@@ -8,14 +8,15 @@ const style = {
 };
 
 const BgPallete = ({ setBg, setShowPallete }) => {
-  const bgs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  const bgs = Array.from(Array(17).keys());
 
   const handleBgChange = (val, e) => {
     e.stopPropagation();
     setBg(`background-${val}`);
   };
+
   return (
-    <div className="row  justify-content-center align-items-center  px-3">
+    <div className="row h-100 d-flex justify-content-center align-items-center mx-2">
       <AuthRedirect />
       {bgs.map((v) => {
         return (
@@ -31,9 +32,9 @@ const BgPallete = ({ setBg, setShowPallete }) => {
                   }
                 : {
                     ...style,
-                    height: "3rem",
-                    width: "3rem",
-                    marginRight: "3px",
+                    height: "2rem",
+                    width: "2rem",
+                    marginRight: "1px",
                   }
             }
             id={`background-${v}`}
@@ -48,7 +49,7 @@ const BgPallete = ({ setBg, setShowPallete }) => {
           style={
             isMobile
               ? { ...style, fontSize: "2rem", marginRight: "1.5px" }
-              : { ...style, fontSize: "3.5rem", marginRight: "3px" }
+              : { ...style, fontSize: "2rem", marginRight: "1px" }
           }
           className="text-dark my-2"
           onClick={() => setShowPallete(false)}

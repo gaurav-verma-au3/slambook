@@ -3,19 +3,41 @@ import { API_ORIGIN_URL } from "../config";
 import ResponseForm from "./ResponseForm";
 import { useParams } from "react-router-dom";
 import HelmetShare from "./HelmetShare";
+import PostResponseDiaglog from "./PostResponseDiaglog";
 
 const PostResponse = (props) => {
   const { setBg, setUserName } = props;
   const { slam_id } = useParams();
   const [slam, setSlam] = useState(null);
   const [owner, setOwner] = useState(null);
+  const [error, setError] = useState({ isError: false, message: "" });
+  const [open, setOpen] = React.useState(true);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const getSlam = async (slam_id) => {
     const url = `${API_ORIGIN_URL}/fill/getslam/${slam_id}`;
-    const data = await fetch(url).then((data) => data.json());
-    setSlam(data.slam);
-    setUserName(data.slam.name);
-    setOwner(data.owner);
+    await fetch(url)
+      .then((data) => data.json())
+      .then((slam) => {
+        console.log(slam);
+        if (slam.slam) {
+          setSlam(slam.slam);
+          setUserName(slam.slam.name);
+          setOwner(slam.owner);
+        }
+      })
+      .catch((err) => {
+        setError({
+          isError: true,
+          message: "Slam Not Found",
+        });
+      });
   };
 
   useEffect(() => {
@@ -38,12 +60,26 @@ const PostResponse = (props) => {
           <div className="row d-flex justify-content-center">
             {slam ? (
               <ResponseForm questions={slam.questions} slam_id={slam_id} />
-            ) : (
-              <h4 className="text-center">Page Not Found</h4>
-            )}
+            ) : null}
           </div>
         </div>
       )}
+      <div className="container py-5 my-5">
+        {error.isError ? (
+          <h4 className="text-center my-5 py-5 font-weight-bold">
+            {error.message}
+          </h4>
+        ) : null}
+      </div>
+      {slam ? (
+        <PostResponseDiaglog
+          owner={owner}
+          slam={slam}
+          open={open}
+          handleClickOpen={handleClickOpen}
+          handleClose={handleClose}
+        />
+      ) : null}
     </>
   );
 };

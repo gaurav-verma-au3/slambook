@@ -100,10 +100,10 @@ const Signup = (props) => {
   };
 
   useEffect(() => {
-    setFormData({
+    setFormData((formData) => ({
       ...formData,
       questions: [...questions.map((q, i) => ({ index: i, question: q }))],
-    });
+    }));
   }, []);
 
   return (

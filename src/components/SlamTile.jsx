@@ -74,8 +74,8 @@ const SlamTile = ({
   return (
     <>
       <Card
-        className={` rounded shadow shadow-lg ${classes.root}`}
-        style={{ background: "transparent" }}
+        className={` rounded shadow shadow-sm ${classes.root}`}
+        style={{ background: "transparent", border: "2px solid black" }}
       >
         <div id={custom_bg}>
           {is_answered ? (
@@ -142,10 +142,10 @@ const SlamTile = ({
             </IconButton>
             <IconButton
               className="text-danger"
-              // onClick={(e) => }
+              onClick={(e) => handleDelete(_id)}
               aria-label="Delete"
             >
-              <DeleteIcon onClick={(e) => handleDelete(_id)} />
+              <DeleteIcon />
             </IconButton>
             {!is_answered ? (
               <IconButton

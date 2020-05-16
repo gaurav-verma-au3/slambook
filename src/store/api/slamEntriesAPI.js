@@ -98,7 +98,7 @@ export const fetchAllEntries = (isLoggedIn, enqueueSnackbar) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      const variant = data.error ? "error" : "success";
+      // const variant = data.error ? "error" : "success";
       // handleNotification(enqueueSnackbar, data.message, variant);
       //notistack
       store.dispatch(updateEntriesInStore(data.slams));
