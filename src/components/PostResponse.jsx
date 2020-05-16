@@ -25,7 +25,6 @@ const PostResponse = (props) => {
     await fetch(url)
       .then((data) => data.json())
       .then((slam) => {
-        console.log(slam);
         if (slam.slam) {
           setSlam(slam.slam);
           setUserName(slam.slam.name);

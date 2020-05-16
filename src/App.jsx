@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  // Switch,
-  // Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import SlamList from "./components/SlamList";
@@ -13,7 +8,6 @@ import SlamPage from "./components/SlamPage";
 import Landing from "./components/Landing";
 import PostResponse from "./components/PostResponse";
 import AddQuestions from "./components/AddQuestions";
-// import { bgs } from "./components/styles/bg";
 import Menu from "./components/Menu";
 import { useSnackbar } from "notistack";
 import "./components/styles/landingPage.css";
@@ -22,11 +16,6 @@ import { useSelector } from "react-redux";
 import { isMobile } from "react-device-detect";
 import FourZeroFour from "./components/FourZeroFour";
 import { updateBgAPI } from "./store/api/auth";
-import AuthRedirect from "./components/AuthRedirect";
-
-// const redirectto404 = () => {
-//   return <Redirect to="/404" />;
-// };
 
 function App() {
   const [bg, setBg] = useState("background-1");
@@ -46,11 +35,7 @@ function App() {
   }, [bg]);
 
   return (
-    <div
-      className="App container-fluid full-height"
-      id={bg}
-      // style={bgs[bg.split("-")[0] + bg.split("-")[1]]}
-    >
+    <div className="App container-fluid full-height" id={bg}>
       <div>
         <Router>
           <Route exact path="/" component={Landing} />
@@ -111,8 +96,6 @@ function App() {
             )}
           />
           <Route path="/404" component={FourZeroFour} />
-          {/* <Route component={redirectto404} /> */}
-          {/* </Switch> */}
         </Router>
         {!isMobile && (
           <div className="container-fluid fixed-bottom py-2" id={bg}>

@@ -3,16 +3,13 @@ import { isMobile } from "react-device-detect";
 import {
   TextField,
   InputAdornment,
-  Button,
   FormControl,
-  FormHelperText,
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import { withStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
-import { useDispatch } from "react-redux";
 import { submitResponseAPI } from "../store/api/submitResponse";
 import { Redirect } from "react-router-dom";
 const styles = {
@@ -46,7 +43,7 @@ const ResponseForm = ({ questions, slam_id, classes }) => {
   const [responses, setResponses] = useState(null);
   const [answeredCounter, setAnsweredCounter] = useState(0);
   const { enqueueSnackbar } = useSnackbar();
-  const dispatch = useDispatch();
+
   const handleClose = (index) =>
     setResponses([
       ...responses.map((v, i) =>

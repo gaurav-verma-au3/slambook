@@ -37,7 +37,9 @@ export const fetchProfile = (token, dispatch) => {
   })
     .then((data) => data.json())
     .then((result) => dispatch(reUpdateLoggedInUser(result)))
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      return;
+    });
 };
 
 export const updatePassword = (form, setResponse, token) => {
@@ -74,8 +76,8 @@ export const updateBgAPI = (token, enqueueSnackbar, custom_bg) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      let { message, error } = data;
-      let variant = error ? "error" : "success";
+      // let { message, error } = data;
+      // let variant = error ? "error" : "success";
       // handleNotification(enqueueSnackbar, message, variant);
     });
 };

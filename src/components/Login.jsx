@@ -63,8 +63,6 @@ const Login = ({ classes }) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(e.target.email.value);
-    console.log("here");
     let valid = validateLoginForm(e, setError);
     if (valid) {
       login(

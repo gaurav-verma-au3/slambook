@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 import {
   FacebookShareButton,
-  InstapaperShareButton,
   LinkedinShareButton,
   PinterestShareButton,
   TelegramShareButton,
@@ -9,7 +8,6 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
   PinterestIcon,
-  InstapaperIcon,
   FacebookIcon,
   LinkedinIcon,
   TelegramIcon,
@@ -23,7 +21,6 @@ import { handleNotification } from "../utils";
 import { useSnackbar } from "notistack";
 const Share = ({ url, media }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const textToCopy = useRef(null);
   const copyToClipboard = () => {
     const dummy = document.createElement("input");
     document.body.appendChild(dummy);
@@ -41,7 +38,7 @@ const Share = ({ url, media }) => {
           <div className="col-12 d-flex justify-content-around align-items-center">
             <div className="bg-secondary p-2 d-flex justify-content-center align-items-center rounded-circle">
               <FileCopyIcon
-                style={{ fontSize: '1.2rem' ,cursor: "pointer" }}
+                style={{ fontSize: "1.2rem", cursor: "pointer" }}
                 onClick={copyToClipboard}
               />
             </div>
