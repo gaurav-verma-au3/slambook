@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { addEntry } from "../store/slamEntries/actions/slamEntries.actions";
 import AuthRedirect from "./AuthRedirect";
+import { useHistory } from "react-router-dom";
 
 const styles = {
   root: {
@@ -43,6 +44,7 @@ const styles = {
 };
 
 const AddEntryForm = ({ bg, classes }) => {
+  const history = useHistory();
   const [custom_bg, setCustomBg] = useState(bg);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
@@ -61,6 +63,7 @@ const AddEntryForm = ({ bg, classes }) => {
     };
 
     dispatch(addEntry(payload));
+    history.push("/app/home");
   };
 
   return (

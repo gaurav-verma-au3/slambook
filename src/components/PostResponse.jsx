@@ -4,9 +4,13 @@ import ResponseForm from "./ResponseForm";
 import { useParams } from "react-router-dom";
 import HelmetShare from "./HelmetShare";
 import PostResponseDiaglog from "./PostResponseDiaglog";
+import { useSelector } from "react-redux";
+import Menu from "./Menu";
+import { isMobile } from "react-device-detect";
 
 const PostResponse = (props) => {
-  const { setBg, setUserName } = props;
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const { setBg, setUserName, bg } = props;
   const { slam_id } = useParams();
   const [slam, setSlam] = useState(null);
   const [owner, setOwner] = useState(null);
@@ -27,7 +31,9 @@ const PostResponse = (props) => {
       .then((slam) => {
         if (slam.slam) {
           setSlam(slam.slam);
-          setUserName(slam.slam.name);
+          if (!isLoggedIn.token) {
+            // setUserName(slam.slam.name);
+          }
           setOwner(slam.owner);
         }
       })
@@ -42,43 +48,69 @@ const PostResponse = (props) => {
   useEffect(() => {
     getSlam(slam_id);
   }, [slam_id]);
+
   useEffect(() => {
     if (slam) setBg(slam.custom_bg);
-  });
+    return () => {
+      setBg(null);
+    };
+  }, [slam?.custom_bg]);
+
   return (
     <>
-      {slam && slam.is_answered ? (
-        <h4 className="text-center text-muted my-5">Response already Exists</h4>
-      ) : (
-        <div
-          className="container-fluid m-0 p-0"
-          id={`${slam && slam.custom_bg ? slam.custom_bg : "background-9"}`}
-        >
-          <HelmetShare message={slam?.message} />
+      <Menu bg={bg} />
 
-          <div className="row d-flex justify-content-center">
-            {slam ? (
-              <ResponseForm questions={slam.questions} slam_id={slam_id} />
-            ) : null}
-          </div>
-        </div>
-      )}
-      <div className="container py-5 my-5">
-        {error.isError ? (
-          <h4 className="text-center my-5 py-5 font-weight-bold">
-            {error.message}
+      <div
+        style={
+          !isLoggedIn.token
+            ? !isMobile
+              ? {
+                  paddingTop: "15vh",
+                  paddingBottom: "15vh",
+                }
+              : { paddingTop: "20vh", paddingBottom: "21.5vh" }
+            : !isMobile
+            ? {
+                paddingBottom: "15vh",
+              }
+            : { paddingBottom: "21.5vh" }
+        }
+      >
+        {slam && slam.is_answered ? (
+          <h4 className="text-center text-muted my-5">
+            Response already Exists
           </h4>
+        ) : (
+          <div
+            className="container-fluid m-0 p-0"
+            id={`${slam && slam.custom_bg ? slam.custom_bg : "background-9"}`}
+          >
+            <HelmetShare message={slam?.message} />
+
+            <div className="row d-flex justify-content-center">
+              {slam ? (
+                <ResponseForm questions={slam.questions} slam_id={slam_id} />
+              ) : null}
+            </div>
+          </div>
+        )}
+        {error.isError ? (
+          <div className="container py-5 my-5">
+            <h4 className="text-center my-5 py-5 font-weight-bold">
+              {error.message}
+            </h4>
+          </div>
+        ) : null}
+        {slam ? (
+          <PostResponseDiaglog
+            owner={owner}
+            slam={slam}
+            open={open}
+            handleClickOpen={handleClickOpen}
+            handleClose={handleClose}
+          />
         ) : null}
       </div>
-      {slam ? (
-        <PostResponseDiaglog
-          owner={owner}
-          slam={slam}
-          open={open}
-          handleClickOpen={handleClickOpen}
-          handleClose={handleClose}
-        />
-      ) : null}
     </>
   );
 };

@@ -6,12 +6,13 @@ import {
   FormControl,
   FormControlLabel,
   Checkbox,
+  Menu,
 } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import { withStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
 import { submitResponseAPI } from "../store/api/submitResponse";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 const styles = {
   root: {
     background: "transparent",
@@ -40,6 +41,7 @@ const styles = {
 };
 
 const ResponseForm = ({ questions, slam_id, classes }) => {
+  const history = useHistory();
   const [responses, setResponses] = useState(null);
   const [answeredCounter, setAnsweredCounter] = useState(0);
   const { enqueueSnackbar } = useSnackbar();
@@ -75,6 +77,7 @@ const ResponseForm = ({ questions, slam_id, classes }) => {
       enqueueSnackbar,
     };
     submitResponseAPI(payload);
+    history.replace("/");
   };
 
   const next = (i) => {
@@ -107,8 +110,9 @@ const ResponseForm = ({ questions, slam_id, classes }) => {
 
   return (
     <div className="col-md-6 col-sm-10 ">
+      <Menu />
       {responses ? (
-        <h5>
+        <h5 className="text-center my-4 font-weight-bold">
           {answeredCounter} of {responses.length} Questions Answered{" "}
         </h5>
       ) : null}

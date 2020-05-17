@@ -49,7 +49,6 @@ const Menu = ({ setShowPallete, showPallete, bg, setBg, userName }) => {
         handleClose={handleClose}
       />
       <div className="row d-flex justify-content-center rounded align-items-center rounded">
-        {/* <div className="col-12 rounded" style={{ border: "5px solid #161718" }}> */}
         <div className="col-12 rounded">
           <div className="row">
             <div
@@ -72,89 +71,115 @@ const Menu = ({ setShowPallete, showPallete, bg, setBg, userName }) => {
                     </div>
                   </div>
                 </>
-              ) : (
+              ) : userName ? (
                 <p className="font-weight-bold text-center pt-4">
                   Welcome, {userName && userName.split(" ")[0]}
                 </p>
-              )}
+              ) : null}
             </div>
-            {isLoggedIn.success ? (
-              <div
-                id={isMobile ? bg : ""}
-                className={
-                  isMobile
-                    ? `fixed-bottom d-flex flex-column justify-content-center pb-1 pt-3 text-light  mobile-menu-shadow`
-                    : `col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center`
-                }
-              >
-                <div className="d-flex justify-content-center align-items-center">
-                  <Link to="/">
-                    <HomeIcon
-                      className={
-                        isMobile
-                          ? " mx-3 text-dark"
-                          : "mx-2 text-dark cursor-pointer"
-                      }
-                    />
-                  </Link>
-                  <ColorLensIcon
-                    className={
-                      isMobile
-                        ? " mx-3 text-dark"
-                        : "mx-2 text-dark cursor-pointer"
-                    }
-                    onClick={(_) => setShowPallete(!showPallete)}
-                  />
-                  <Link to="/app/add/user">
-                    <GroupAddIcon
-                      className={
-                        isMobile
-                          ? " mx-3 text-dark"
-                          : "mx-2 text-dark cursor-pointer"
-                      }
-                    />
-                  </Link>
-                  <Link to="/app/add/Questions">
-                    <PostAddIcon
-                      className={
-                        isMobile
-                          ? " mx-3 text-dark"
-                          : "mx-2 text-dark cursor-pointer"
-                      }
-                    />
-                  </Link>
 
-                  <InfoIcon
-                    className={
-                      isMobile
-                        ? " mx-3 text-dark"
-                        : "mx-2 text-dark cursor-pointer"
-                    }
-                    onClick={handleClickOpen}
-                  />
-                  <LockIcon
-                    className={
-                      isMobile
-                        ? " mx-3 text-dark"
-                        : "mx-2 text-dark cursor-pointer"
-                    }
-                    onClick={(e) => handleLogout()}
-                  />
-                </div>
+            <div
+              id={isMobile ? bg : ""}
+              className={
+                isMobile
+                  ? `fixed-bottom d-flex flex-column justify-content-center pb-1 pt-3 text-light  mobile-menu-shadow`
+                  : `col-md-2 col-sm-12 py-2 d-flex justify-content-center align-items-center`
+              }
+            >
+              <div className="d-flex justify-content-center align-items-center">
+                {isLoggedIn.success ? (
+                  <>
+                    <Link to="/">
+                      <HomeIcon
+                        className={
+                          isMobile
+                            ? " mx-3 text-dark"
+                            : "mx-2 text-dark cursor-pointer"
+                        }
+                      />
+                    </Link>
+                    <ColorLensIcon
+                      className={
+                        isMobile
+                          ? " mx-3 text-dark"
+                          : "mx-2 text-dark cursor-pointer"
+                      }
+                      onClick={(_) => setShowPallete(!showPallete)}
+                    />
+                    <Link to="/app/add/user">
+                      <GroupAddIcon
+                        className={
+                          isMobile
+                            ? " mx-3 text-dark"
+                            : "mx-2 text-dark cursor-pointer"
+                        }
+                      />
+                    </Link>
+                    <Link to="/app/add/Questions">
+                      <PostAddIcon
+                        className={
+                          isMobile
+                            ? " mx-3 text-dark"
+                            : "mx-2 text-dark cursor-pointer"
+                        }
+                      />
+                    </Link>
 
-                {isMobile && (
-                  <a
-                    id={bg}
-                    style={{ fontSize: "0.6rem" }}
-                    className="text-center mt-2 text-dark font-weight-light"
-                    href="https://gaurav-verma-au3.github.io"
-                    target="blank"
-                  >
-                    <p className="m-0">Developed By Gaurav Verma</p>
-                  </a>
+                    <InfoIcon
+                      className={
+                        isMobile
+                          ? " mx-3 text-dark"
+                          : "mx-2 text-dark cursor-pointer"
+                      }
+                      onClick={handleClickOpen}
+                    />
+                    <LockIcon
+                      className={
+                        isMobile
+                          ? " mx-3 text-dark"
+                          : "mx-2 text-dark cursor-pointer"
+                      }
+                      onClick={(e) => handleLogout()}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      className={
+                        isMobile
+                          ? " mx-3 text-dark border border-dark rounded px-3 py-1 "
+                          : "mx-2 text-dark cursor-pointer  border border-dark rounded px-3 py-1"
+                      }
+                      to="/login"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      className={
+                        isMobile
+                          ? " mx-3 text-dark border border-dark rounded px-3 py-1"
+                          : "mx-2 text-dark cursor-pointer border border-dark rounded px-3 py-1"
+                      }
+                      to="/signup"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
                 )}
               </div>
-            ) : null}
+
+              {isMobile && (
+                <a
+                  id={bg}
+                  style={{ fontSize: "0.6rem" }}
+                  className="text-center mt-2 text-dark font-weight-light"
+                  href="https://gaurav-verma-au3.github.io"
+                  target="blank"
+                >
+                  <p className="m-0">Developed By Gaurav Verma</p>
+                </a>
+              )}
+            </div>
           </div>
         </div>
 

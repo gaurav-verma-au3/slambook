@@ -16,9 +16,12 @@ import { useSelector } from "react-redux";
 import { isMobile } from "react-device-detect";
 import FourZeroFour from "./components/FourZeroFour";
 import { updateBgAPI } from "./store/api/auth";
+import AuthRedirect from "./components/AuthRedirect";
 
 function App() {
-  const [bg, setBg] = useState("background-1");
+  const [bg, setBg] = useState("background - 1");
+  const [slamBg, setSlamBg] = useState(null);
+  const [userBg, setUserBg] = useState("background-1");
   const [showPallete, setShowPallete] = useState(false);
   const [userName, setUserName] = useState();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -26,13 +29,22 @@ function App() {
   useEffect(() => {
     if (isLoggedIn.success) {
       setUserName(isLoggedIn.name);
-      setBg(isLoggedIn.custom_bg);
+      setUserBg(isLoggedIn.custom_bg);
     }
   }, [isLoggedIn]);
 
   useEffect(() => {
-    updateBgAPI(isLoggedIn.token, enqueueSnackbar, bg);
-  }, [bg]);
+    updateBgAPI(isLoggedIn.token, enqueueSnackbar, userBg);
+  }, [userBg]);
+
+  useEffect(() => {
+    console.log(slamBg, userBg);
+    if (slamBg) {
+      setBg(slamBg);
+    } else {
+      setBg(userBg);
+    }
+  }, [slamBg, userBg]);
 
   return (
     <div className="App container-fluid full-height" id={bg}>
@@ -41,57 +53,55 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          {isLoggedIn.token ? (
-            <div
-              style={
-                !isMobile
-                  ? {
-                      paddingTop: "15vh",
-                    }
-                  : { paddingTop: "21.5vh" }
-              }
-            >
+        
+          {/* {isLoggedIn.token ? ( */}
+          <div
+            style={
+              !isMobile
+                ? {
+                    paddingTop: "15vh",
+                  }
+                : { paddingTop: "21.5vh" }
+            }
+          >
+            <Route
+              path="/app"
+              render={(props) => (
+                <Menu
+                  {...props}
+                  bg={bg}
+                  userName={userName}
+                  setShowPallete={setShowPallete}
+                  showPallete={showPallete}
+                  setBg={setUserBg}
+                />
+              )}
+            />
+            <div className="container px-0">
+              <Route exact path="/app/home" component={SlamList} />
               <Route
-                path="/app"
+                exact
+                path="/app/add/user"
+                render={(props) => <AddEntry {...props} bg={bg} />}
+              />
+              <Route exact path="/app/add/questions" component={AddQuestions} />
+              <Route
+                path="/app/slam/:id"
                 render={(props) => (
-                  <Menu
-                    {...props}
-                    bg={bg}
-                    userName={userName}
-                    setShowPallete={setShowPallete}
-                    showPallete={showPallete}
-                    setBg={setBg}
-                  />
+                  <SlamPage {...props} setBg={setSlamBg} bg={bg} />
                 )}
               />
-              <div className="container px-0">
-                <Route exact path="/app/home" component={SlamList} />
-                <Route
-                  exact
-                  path="/app/add/user"
-                  render={(props) => <AddEntry {...props} bg={bg} />}
-                />
-                <Route
-                  exact
-                  path="/app/add/questions"
-                  component={AddQuestions}
-                />
-                <Route
-                  path="/app/slam/:id"
-                  render={(props) => (
-                    <SlamPage {...props} setBg={setBg} bg={bg} />
-                  )}
-                />
-              </div>
             </div>
-          ) : null}
+          </div>
+          {/* ) : null} */}
           <Route
             path="/app/fill/slam/:slam_id"
             render={(props) => (
               <PostResponse
                 {...props}
+                bg={bg}
                 setUserName={setUserName}
-                setBg={setBg}
+                setBg={setSlamBg}
               />
             )}
           />
